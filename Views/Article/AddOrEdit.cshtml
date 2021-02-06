@@ -1,0 +1,49 @@
+@using spgnn.ViewModels;
+@model AddOrEditViewModel;
+@{
+    ViewData["Title"] = Model.NeedEdit ? "Изменение записи" : "Добавление записи";
+}
+
+<form asp-controller="Article" asp-action="AddOrEdit" method="Post">
+    <div class="input-group">
+        <input type="hidden" value="@Model.DTO.Id" asp-for="DTO.Id">
+    </div>
+    <div class="input-group">
+        <input type="hidden" value="@Model.NeedEdit" asp-for="NeedEdit">
+    </div>
+    <div class="form-group row">
+        <div class="col">
+            <input type="text" class="form-control" placeholder="Заголовок" asp-for="DTO.Title">
+        </div>
+    </div>
+    <div class="form-group row">
+        <div class="col">
+            <textarea id="textEdit" class="form-control" asp-for="DTO.Text">@(Model.DTO.Text)</textarea>
+        </div>
+    </div>
+    @if (Model.NeedEdit)
+    {
+        <input class="btn btn-primary" type="submit" value="Изменить">
+    }
+    else
+    {
+        <input class="btn btn-primary" type="submit" value="Доабвить">
+    }
+</form>
+
+<!--Scripts-->
+<script src="https://cdn.tiny.cloud/1/6lfhp94kacgq91bzczponpzzm3gsg0o1fphst894zmgiv0k7/tinymce/5/tinymce.min.js"
+    referrerpolicy="origin"></script>
+<script type="text/javascript">
+    tinymce.init({
+        selector: 'textarea#textEdit',
+        language: 'ru',
+        toolbar: 'code | undo redo | formatselect | bold italic underline strikethrough forecolor | blockquote numlist bullist image link emoticons| export',
+        menubar: false,
+        min_height: 500,
+        plugins: 'code lists advlist emoticons export autolink link image imagetools autoresize',
+        block_unsupported_drop: false,
+        images_upload_url: '/Article/TinyUpload?id=@Model.DTO.Id',
+        automatic_uploads: true
+    });
+</script>
