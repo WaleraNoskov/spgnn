@@ -12,51 +12,51 @@ namespace spgnn.DAL.Repositories
     public class RepositoryBase<T> : IRepositoryBase<T>
         where T : EntityBase
     {
-        private SPGNNDBContext dbContext { get; set; }
-        private DbSet<T> dbSet {get; set;}
+        private SpgnndbContext DbContext { get; set; }
+        private DbSet<T> DbSet {get; set;}
 
-        public RepositoryBase(SPGNNDBContext dbContext)
+        public RepositoryBase(SpgnndbContext dbContext)
         {
-            this.dbContext = dbContext;
-            this.dbSet = dbContext.Set<T>();
+            this.DbContext = dbContext;
+            this.DbSet = dbContext.Set<T>();
         }
 
         public T Find(int id)
         {
-            var entity = dbSet.Find(id);
+            var entity = DbSet.Find(id);
             return entity;
         }
 
         public IEnumerable GetAll()
         {
-            return dbSet.ToList();
+            return DbSet.ToList();
         }
 
         public void Insert(T entity)
         {
-            dbSet.Add(entity);
-            dbContext.SaveChanges();
+            DbSet.Add(entity);
+            DbContext.SaveChanges();
         }
 
         public IQueryable<T> Query(Expression<Func<T, bool>> filter)
         {
-            IQueryable<T> query = dbSet;
+            IQueryable<T> query = DbSet;
             return query.Where(filter);
         }
         public void Remove(T entity)
         {
-            dbSet.Remove(entity);
-            dbContext.SaveChanges();
+            DbSet.Remove(entity);
+            DbContext.SaveChanges();
         }
 
         public void Update(T entity)
         {
-            if(dbContext.Entry(entity).State == EntityState.Detached)
+            if(DbContext.Entry(entity).State == EntityState.Detached)
             {
-                dbContext.Attach(entity);
-                dbContext.Entry(entity).State = EntityState.Modified;
+                DbContext.Attach(entity);
+                DbContext.Entry(entity).State = EntityState.Modified;
             }
-            dbContext.SaveChanges();
+            DbContext.SaveChanges();
         }
     }
 }

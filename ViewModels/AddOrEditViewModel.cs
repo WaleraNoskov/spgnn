@@ -6,8 +6,7 @@ namespace spgnn.ViewModels
 {
     public class AddOrEditViewModel
     {
-        public Article DTO { get; set; }
+        public Article Dto { get; set; }
         public bool NeedEdit { get; set; }
-        public IFormFileCollection UploadedFiles { get; set; }
     }
 }

@@ -6,6 +6,5 @@ namespace spgnn.ViewModels
     public class NewsListViewModel
     {
         public List<Article> Articles;
-        
     }
 }

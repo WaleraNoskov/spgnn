@@ -3,11 +3,10 @@ using spgnn.Models;
 
 namespace spgnn.DAL
 {
-    public class SPGNNDBContext : DbContext
+    public class SpgnndbContext : DbContext
     {
         DbSet<Article> Articles { get; set; }
-        DbSet<FileModel> Files { get; set; }
-        public SPGNNDBContext(DbContextOptions options) : base(options)
+        public SpgnndbContext(DbContextOptions options) : base(options)
         {
         }
     }

@@ -8,7 +8,7 @@ using spgnn.DAL;
 
 namespace spgnn.Migrations
 {
-    [DbContext(typeof(SPGNNDBContext))]
+    [DbContext(typeof(SpgnndbContext))]
     [Migration("20210102204101_Init")]
     partial class Init
     {

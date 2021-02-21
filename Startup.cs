@@ -31,11 +31,10 @@ namespace spgnn
         {
             services.AddControllersWithViews();
             services.AddTransient<IRepositoryBase<Article>, RepositoryBase<Article>>();
-            services.AddTransient<IRepositoryBase<FileModel>, RepositoryBase<FileModel>>();
 
             var connectionString = Configuration.GetSection("ConnectionString:Source").Value;
             connectionString = connectionString.Replace("/this", Directory.GetCurrentDirectory());
-            services.AddDbContext<SPGNNDBContext>(options => options.UseSqlite(connectionString).UseLazyLoadingProxies());
+            services.AddDbContext<SpgnndbContext>(options => options.UseSqlite(connectionString).UseLazyLoadingProxies());
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

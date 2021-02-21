@@ -2,6 +2,7 @@
 @model NewsListViewModel;
 
 <div class="px-0">
+    <a asp-controller="Article" asp-action="AddOrEdit" asp-route-id=-1 asp-route-needEdit=@true>Добавить</a>
     <ul class="list-group px-0">
         @foreach (var item in Model.Articles)
         {
@@ -13,6 +14,7 @@
                         <p class="card-text">@Html.Raw(item.Text)</p>
                         <a asp-controller="Article" asp-action="Show" asp-route-id=@item.Id>Читать</a>
                         <a asp-controller="Article" asp-action="AddOrEdit" asp-route-id=@item.Id asp-route-needEdit=@true>Редактировать</a>
+                        <a asp-controller="NewsList" asp-action="delete" asp-route-id=@item.Id>Удалить</a>
                     </div>
                 </div>
             </li>

@@ -6,19 +6,19 @@
 
 <form asp-controller="Article" asp-action="AddOrEdit" method="Post">
     <div class="input-group">
-        <input type="hidden" value="@Model.DTO.Id" asp-for="DTO.Id">
+        <input type="hidden" value="@Model.Dto.Id" asp-for="Dto.Id">
     </div>
     <div class="input-group">
         <input type="hidden" value="@Model.NeedEdit" asp-for="NeedEdit">
     </div>
     <div class="form-group row">
         <div class="col">
-            <input type="text" class="form-control" placeholder="Заголовок" asp-for="DTO.Title">
+            <input type="text" class="form-control" placeholder="Заголовок" asp-for="Dto.Title">
         </div>
     </div>
     <div class="form-group row">
         <div class="col">
-            <textarea id="textEdit" class="form-control" asp-for="DTO.Text">@(Model.DTO.Text)</textarea>
+            <textarea id="textEditor" class="form-control" asp-for="Dto.Text">@(Model.Dto.Text)</textarea>
         </div>
     </div>
     @if (Model.NeedEdit)
@@ -35,15 +35,49 @@
 <script src="https://cdn.tiny.cloud/1/6lfhp94kacgq91bzczponpzzm3gsg0o1fphst894zmgiv0k7/tinymce/5/tinymce.min.js"
     referrerpolicy="origin"></script>
 <script type="text/javascript">
+    onDelete = function (editor) {
+        editor.on('KeyDown', function (e) {
+                
+        if ((e.keyCode == 8 || e.keyCode == 46) && editor.selection) {
+                
+            let selectedNode = editor.selection.getNode();
+                
+                if (selectedNode && selectedNode.nodeName == 'IMG') {
+                    let path = '/Article/TinyDeleteImage?path=' + selectedNode.src;
+                    console.log(path);
+                    tinyMCE.util.XHR.send({
+                        url: path, 
+                        type: 'POST',
+                    })
+                    }
+                }
+            });
+        }
+
     tinymce.init({
         selector: 'textarea#textEdit',
         language: 'ru',
-        toolbar: 'code | undo redo | formatselect | bold italic underline strikethrough forecolor | blockquote numlist bullist image link emoticons| export',
+        toolbar: 'code | undo redo | formatselect | bold italic underline strikethrough forecolor | blockquote numlist bullist image link emoticons| export | table',
         menubar: false,
         min_height: 500,
-        plugins: 'code lists advlist emoticons export autolink link image imagetools autoresize',
-        block_unsupported_drop: false,
-        images_upload_url: '/Article/TinyUpload?id=@Model.DTO.Id',
-        automatic_uploads: true
+        plugins: 'code lists advlist emoticons autolink link image imagetools autoresize',
+        images_upload_url: '/Article/TinyUpload?id=@Model.Dto.Id',
+        automatic_uploads: true,
+        init_instance_callback: function (editor) {
+            editor.on('KeyDown', function (e) {
+                if ((e.keyCode == 8 || e.keyCode == 46) && editor.selection) {                                      
+                    let selectedNode = editor.selection.getNode();
+                    if (selectedNode && selectedNode.nodeName == 'IMG') {
+                    let path = '/Article/TinyDeleteImage?path=' + selectedNode.src;
+                    console.log(path);
+                        tinyMCE.util.XHR.send({
+                            url: path, 
+                            type: 'POST',
+                        })
+                    }
+                }    
+            })
+        }
+        
     });
 </script>

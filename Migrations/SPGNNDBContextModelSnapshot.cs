@@ -7,8 +7,8 @@ using spgnn.DAL;
 
 namespace spgnn.Migrations
 {
-    [DbContext(typeof(SPGNNDBContext))]
-    partial class SPGNNDBContextModelSnapshot : ModelSnapshot
+    [DbContext(typeof(SpgnndbContext))]
+    partial class SpgnndbContextModelSnapshot : ModelSnapshot
     {
         protected override void BuildModel(ModelBuilder modelBuilder)
         {

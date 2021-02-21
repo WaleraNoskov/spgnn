@@ -1,4 +1,3 @@
-using System.Collections.Generic;
 using Microsoft.AspNetCore.Mvc;
 using spgnn.DAL.Repositories;
 using spgnn.Models;
@@ -10,21 +9,30 @@ namespace spgnn.Controllers
     [Route("news/[action]")]
     public class NewsListController : Controller
     {
-        private IRepositoryBase<Article> repository;
-        private int pageCount;
+        private IRepositoryBase<Article> _repository;
+        private int _pageCount;
         public NewsListController(IRepositoryBase<Article> repository)
         {
-            this.repository = repository;
-            pageCount = 0;
+            this._repository = repository;
+            _pageCount = 0;
         }
 
         [HttpGet]
         [ActionName("show")]
         public IActionResult Show()
         {
-            var models = repository.Query(x => x.Id >= pageCount*10 && pageCount <= pageCount*10).ToList();
+            var models = _repository.Query(x => x.Id >= _pageCount*10 && _pageCount <= _pageCount*10).ToList();
 
-            return View(new NewsListViewModel() {Articles = models});
+            return View("show", new NewsListViewModel() {Articles = models});
+        }
+
+        [HttpGet]
+        [ActionName("delete")]
+        public IActionResult Delete(int id)
+        {
+            var article = _repository.Find(id);
+            _repository.Remove(article);
+            return View();
         }
     }
 }
