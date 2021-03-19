@@ -3,14 +3,16 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Proxies;
 using spgnn.DAL;
 using spgnn.DAL.Repositories;
 using spgnn.Models;
@@ -31,10 +33,17 @@ namespace spgnn
         {
             services.AddControllersWithViews();
             services.AddTransient<IRepositoryBase<Article>, RepositoryBase<Article>>();
+            services.AddRazorPages().AddRazorRuntimeCompilation();
 
-            var connectionString = Configuration.GetSection("ConnectionString:Source").Value;
+            var connectionString = Configuration.GetSection("ConnectionStrings:spgnn").Value;
             connectionString = connectionString.Replace("/this", Directory.GetCurrentDirectory());
             services.AddDbContext<SpgnndbContext>(options => options.UseSqlite(connectionString).UseLazyLoadingProxies());
+
+            var connectionStringIdentity = Configuration.GetSection("ConnectionStrings:identity").Value;
+            connectionStringIdentity = connectionString.Replace("/this", Directory.GetCurrentDirectory());
+            services.AddDbContext<IdentityContext>(options => options.UseSqlite(connectionStringIdentity).UseLazyLoadingProxies());
+
+            services.AddIdentity<User, IdentityRole>().AddEntityFrameworkStores<IdentityContext>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -52,11 +61,9 @@ namespace spgnn
             }
             app.UseHttpsRedirection();
             app.UseStaticFiles();
-
             app.UseRouting();
-
             app.UseAuthorization();
-
+            app.UseAuthentication();
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllerRoute(

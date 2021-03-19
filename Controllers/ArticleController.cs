@@ -101,7 +101,7 @@ namespace spgnn.Controllers
         [HttpPost]
         public IActionResult TinyDeleteImage(string path)
         {
-            var regex = new Regex(@"/Files/\d{1,10000000}/blobid\d{1,10000000}.jpg",
+            var regex = new Regex(@"/Files/\d{1,10000000}/\S{1,10000000}.jpg",
                 RegexOptions.Compiled | RegexOptions.CultureInvariant | RegexOptions.IgnoreCase);
             var matches = regex.Matches(path);
             var deletablePath = _appEnvironment.WebRootPath + matches[0].Value;

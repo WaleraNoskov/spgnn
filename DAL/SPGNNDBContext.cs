@@ -5,8 +5,8 @@ namespace spgnn.DAL
 {
     public class SpgnndbContext : DbContext
     {
-        DbSet<Article> Articles { get; set; }
-        public SpgnndbContext(DbContextOptions options) : base(options)
+        public DbSet<Article> Articles { get; set; }
+        public SpgnndbContext(DbContextOptions<SpgnndbContext> options) : base(options)
         {
         }
     }

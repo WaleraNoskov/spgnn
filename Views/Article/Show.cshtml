@@ -1,10 +1,9 @@
 @using spgnn.Models;
 @model Article;
 
-<h1>
+<h5><b>
     @Model.Title
-</h1>
-<small class="text-muted">@Model.Date</small>
+</b></h5>
 
 <div class="mw-100">
     <div style="word-break: break-all;">@Html.Raw(Model.Text)</div>

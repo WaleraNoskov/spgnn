@@ -1,0 +1,33 @@
+﻿@model spgnn.ViewModels.RegisterViewModel;
+@{
+    ViewData["Title"] = "Добавление пользователя";
+}
+<h5>Добавление нового пользователя</h5>
+<form method="post" asp-action="Register" asp-controller="Account">
+    <div class="row">
+        <input class="five columns"  type="text" asp-for="UserName" placeholder="Имя пользователя">
+        <span class="seven columns" asp-validation-for="UserName"></span>
+    </div>
+    
+    <div class="row">
+        <input class="five columns" type="email" asp-for="Email" placeholder="Email">
+        <span class="seven columns" asp-validation-for="Email"></span>
+    </div>
+
+    <div class="row">
+        <input class="five columns" type="text" asp-for="Password" placeholder="Пароль">
+        <span class="seven columns" asp-validation-for="Password"></span>
+    </div>
+
+    <div class="row">
+        <input class="five columns" type="text" asp-for="ConfirmPassword" placeholder="Подтвердите пароль">
+        <span class="seven columns" asp-validation-for="ConfirmPassword"></span>
+    </div>
+
+    <div class="row">
+        <div class="twelve columns">
+            <input class="button-primary" type="submit" value="Регистрация">
+        </div>
+    </div>
+</form>
+
