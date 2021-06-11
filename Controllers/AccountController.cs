@@ -97,5 +97,72 @@ namespace spgnn.Controllers
             await _signInManager.SignOutAsync();
             return RedirectToAction("Index", "Home");
         }
+        
+        public async Task<IActionResult> Edit(string id)
+        {
+            var user = await _userManager.FindByIdAsync(id);
+            if (user == null)
+            {
+                return NotFound();
+            }
+            var model = new EditUserViewModel {Id = user.Id, UserName = user.UserName,Email = user.Email };
+            return View(model);
+        }
+        
+        [HttpPost]
+        public async Task<IActionResult> Edit(EditUserViewModel model)
+        {
+            if (ModelState.IsValid)
+            {
+                var user = await _userManager.FindByIdAsync(model.Id);
+                if(user!=null)
+                {
+                    
+                    
+                    if (model.OldPassword != null || model.Password != null || model.ConfirmPassword != null)
+                    {
+                        var changePasswordResult = await _userManager.ChangePasswordAsync(user, model.OldPassword, model.Password);
+                        if (!changePasswordResult.Succeeded)
+                        {
+                            foreach (var error in changePasswordResult.Errors)
+                            {
+                                ModelState.AddModelError(string.Empty, error.Description);
+                            }
+                        }
+                    }
+
+                    user.Email = model.Email;
+                    user.UserName = model.UserName;
+                    
+                    var result = await _userManager.UpdateAsync(user);
+                    if (result.Succeeded && ModelState.ErrorCount == 0)
+                    {
+                        await _signInManager.SignOutAsync();
+                        await _signInManager.SignInAsync(user, false);
+                        return RedirectToAction("Index", "Home");
+                    }
+                    else
+                    {
+                        foreach (var error in result.Errors)
+                        {
+                            ModelState.AddModelError(string.Empty, error.Description);
+                        }
+                    }
+                }
+            }
+            return View(model);
+        }
+        
+        [HttpPost]
+        public async Task<ActionResult> Delete(string id)
+        {
+            var user = await _userManager.FindByIdAsync(id);
+            if (user != null)
+            {
+                IdentityResult result = await _userManager.DeleteAsync(user);
+            }
+            await _signInManager.SignOutAsync();
+            return RedirectToAction("Index", "Home");
+        }
     }
 }

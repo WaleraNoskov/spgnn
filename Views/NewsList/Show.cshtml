@@ -1,22 +1,20 @@
 @using spgnn.ViewModels;
 @model NewsListViewModel;
 
-<a asp-controller="Article" asp-action="AddOrEdit" asp-route-id=-1 asp-route-needEdit=@false>Добавить</a>
+<a asp-controller="Article" asp-action="AddOrEdit" asp-route-id=-1>Добавить</a>
 
     <ul class="list-group">
         @foreach (var item in Model.Articles)
         {
             <li style="list-style: none">
-
-                    <div class="card" onclick="window.location='@Url.Action("show", "Article", new {id = item.Id})';">
-                        <div>
-                            <h5 class=""><b>@item.Title</b></h5>
-                            <p class="card-text">@Html.Raw(item.Text)</p>
-                            <a asp-controller="Article" asp-action="AddOrEdit" asp-route-id=@item.Id asp-route-needEdit=@true>Редактировать</a>
-                            <a asp-controller="NewsList" asp-action="delete" asp-route-id=@item.Id>Удалить</a>
-                        </div>
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">@item.Text</h5>
+                        <p class="card-text">@Html.Raw(item.Text)</p>
+                        <a class="btn btn-primary" asp-controller="Article" asp-action="AddOrEdit" asp-route-id=@item.Id asp-route-needEdit=@true>Редактировать</a>
+                        <a class="btn btn-primary" asp-controller="NewsList" asp-action="delete" asp-route-id=@item.Id>Удалить</a>
                     </div>
-
+                </div>
             </li>
         }
     </ul>

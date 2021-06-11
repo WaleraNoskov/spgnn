@@ -5,28 +5,34 @@
     <meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <title>@ViewData["Title"] - spgnn</title>
-    <link rel="stylesheet" href="~/lib/fonts/helvetica/stylesheet.css"/>
-    <link rel="stylesheet" href="~/lib/fonts/raleway/raleway.css"/>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Raleway">
+    <link rel="stylesheet" href="~/css/bootstrap.custom.css"/>
     <link rel="stylesheet" href="~/css/site.css"/>
-    <link type="text/css" rel="stylesheet" href="~/lib/skeleton/css/skeleton.css" media="screen,projection"/>
 </head>
 
 <body>
 <header class="container">
-    <ul class="navbar">
-        <li class="navbar-item">
-            <a class="navbar-button" asp-controller="Home" asp-action="Index">Семеновская православная гимназия</a>
-        </li>
-        <li class="navbar-item">
-            <a class="navbar-button" asp-controller="NewsList" asp-action="show">Новости</a>
-        </li>
-        <li class="navbar-item">
-            <a class="navbar-button">Сведения</a>
-        </li>
-        @Html.PartialAsync("LoginPartial").Result
-    </ul>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <div class="container-fluid">
+            <a class="navbar-brand" asp-controller="Home" asp-action="Index">Семеновская православная гимназия</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                    <li class="nav-item">
+                        <a class="nav-link" asp-controller="NewsList" asp-action="show">Новости</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" asp-controller="InfoArticles" asp-action="Show" asp-route-id="-1">Сведения</a>
+                    </li>
+                    @Html.PartialAsync("LoginPartial").Result
+                </ul>
+            </div>
+        </div>
+    </nav>
 </header>
-<div class="container px-0">
+<div class="container">
     <main role="main">
         @RenderBody()
     </main>

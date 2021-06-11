@@ -46,7 +46,7 @@
             let selectedNode = editor.selection.getNode();
                 
                 if (selectedNode && selectedNode.nodeName == 'IMG') {
-                    let path = '/Article/TinyDeleteImage?path=' + selectedNode.src;
+                    let path = '/article/TinyDeleteImage?path=' + selectedNode.src;
                     console.log(path);
                     tinyMCE.util.XHR.send({
                         url: path, 
@@ -64,15 +64,16 @@
         menubar: false,
         min_height: 500,
         plugins: 'code lists advlist emoticons autolink link image imagetools autoresize',
-        images_upload_url: '/Article/TinyUpload?id=@Model.Dto.Id',
+        images_upload_url: '/article/TinyUpload?id=@Model.Dto.Id',
         automatic_uploads: true,
         block_unsupported_drop: false,
+        image_dimensions: false,
         init_instance_callback: function (editor) {
             editor.on('KeyDown', function (e) {
                 if ((e.keyCode == 8 || e.keyCode == 46) && editor.selection) {                                      
                     let selectedNode = editor.selection.getNode();
                     if (selectedNode && selectedNode.nodeName == 'IMG') {
-                    let path = '/Article/TinyDeleteImage?path=' + selectedNode.src;
+                    let path = '/article/TinyDeleteImage?path=' + selectedNode.src;
                     console.log(path);
                         tinyMCE.util.XHR.send({
                             url: path, 
@@ -81,7 +82,18 @@
                     }
                 }    
             })
-        }
+        },
+        setup: function (editor) {
+                    editor.on('init', function(args) {
+                            editor = args.target;
+                    
+                            editor.on('NodeChange', function(e) {
+                                if (e && e.element.nodeName.toLowerCase() == 'img') {
+                                    tinyMCE.DOM.setAttribs(e.element, {'width': null, 'height': null, 'class': 'w-100 h-100'});
+                                }
+                            });
+                        });
+                }
         
     });
 </script>

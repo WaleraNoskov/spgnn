@@ -1,0 +1,27 @@
+﻿@model spgnn.ViewModels.EditUserViewModel
+
+<form asp-controller="Account" asp-action="Edit" method="post">
+    <input type="hidden" value="@Model.Id" asp-for="Id">
+    <div class="mb-3">
+        <label for="name" class="form-label">Имя пользователя</label>
+        <input type="text" class="form-control" id="name" asp-for="UserName">
+    </div>
+    <div class="mb-3">
+        <label for="email" class="form-label">Email address</label>
+        <input type="email" class="form-control" id="email" asp-for="Email" placeholder="name@example.com">
+    </div>
+    <div class="mb-3">
+        <label for="oldPassword" class="form-label">Старый пароль (необязательно)</label>
+        <input type="password" class="form-control" asp-for="OldPassword" id="oldPassword">
+    </div>
+    <div class="mb-3">
+        <label for="password" class="form-label">Пароль (необязательно)</label>
+        <input type="password" class="form-control" asp-for="Password" id="password">
+    </div>
+    <div class="mb-3">
+        <label for="passwordCompare" class="form-label">Повторите пароль (необязательно)</label>
+        <input type="password" class="form-control" asp-for="ConfirmPassword" id="passwordCompare">
+    </div>
+    <input type="submit" class="btn btn-primary" value="Изменить">
+    <button class="btn btn-primary" asp-controller="Account" asp-action="Delete" asp-route-id="@Model.Id">Удалить</button>
+</form>

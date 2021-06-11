@@ -1,36 +1,35 @@
-﻿@using System.Security.Claims
-@if (User.Identity.IsAuthenticated)
-{
-    var identity = User.Identities.FirstOrDefault();
-    var claims = new List<Claim>();
-    var userName = "Пользователь";
-    if (identity != null)
-    {
-        claims = identity.Claims.ToList();
-        var nameClaim = claims.FirstOrDefault(x => x.Type.Equals(ClaimsIdentity.DefaultNameClaimType));
-        if (nameClaim != null)
-        {
-            userName = nameClaim.Value;
-        }
-    }
-    <li class="navbar-item-right">
-        <div class="dropdown">
-            <div class="navbar-button dropdown-button">@userName</div>
-            <div class="dropdown-content">
-                <a asp-action="Logout" asp-controller="Account">Выход</a>
-            </div>
-        </div>
+﻿@using Microsoft.AspNetCore.Identity
+@inject SignInManager<User> SignInManager
+@inject UserManager<User> UserManager
+
+@if(SignInManager.IsSignedIn(User)) {
+<li class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+            @UserManager.GetUserName(User)
+        </a>
+        <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+            <li>
+                <a class="dropdown-item" asp-controller="Account" asp-action="Edit" asp-route-id="@UserManager.GetUserId(User)">Редактировать</a>
+            </li>
+            <li>
+                <a class="dropdown-item" asp-controller="Account" asp-action="Logout">Выйти</a>
+            </li>
+        </ul>
     </li>
-    
 }
 else
 {
-    <li class="navbar-item-right">
-        <div class="dropdown">
-            <div class="navbar-button dropdown-button" onclick="location.replace('/user/startlogin')">Вход на сайт</div>
-            <div class="dropdown-content">
-                <a asp-action="Register" asp-controller="Account">Регистрация</a>
-            </div>
-        </div>
+    <li class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+            Вход на сайт
+        </a>
+        <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+            <li>
+                <a class="dropdown-item" asp-controller="Account" asp-action="Register">Регистрация</a>
+            </li>
+            <li>
+                <a class="dropdown-item" asp-controller="Account" asp-action="StartLogin">Войти</a>
+            </li>
+        </ul>
     </li>
 }

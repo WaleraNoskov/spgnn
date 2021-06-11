@@ -32,18 +32,23 @@ namespace spgnn
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllersWithViews();
-            services.AddTransient<IRepositoryBase<Article>, RepositoryBase<Article>>();
             services.AddRazorPages().AddRazorRuntimeCompilation();
 
             var connectionString = Configuration.GetSection("ConnectionStrings:spgnn").Value;
             connectionString = connectionString.Replace("/this", Directory.GetCurrentDirectory());
             services.AddDbContext<SpgnndbContext>(options => options.UseSqlite(connectionString).UseLazyLoadingProxies());
+            
+            var connectionStringInfoArticles = Configuration.GetSection("ConnectionStrings:infoArticles").Value;
+            connectionStringInfoArticles = connectionStringInfoArticles.Replace("/this", Directory.GetCurrentDirectory());
+            services.AddDbContext<InfoArticlesContext>(options => options.UseSqlite(connectionStringInfoArticles).UseLazyLoadingProxies());
 
             var connectionStringIdentity = Configuration.GetSection("ConnectionStrings:identity").Value;
             connectionStringIdentity = connectionString.Replace("/this", Directory.GetCurrentDirectory());
             services.AddDbContext<IdentityContext>(options => options.UseSqlite(connectionStringIdentity).UseLazyLoadingProxies());
 
             services.AddIdentity<User, IdentityRole>().AddEntityFrameworkStores<IdentityContext>();
+            services.AddTransient<IRepositoryBase<Article>, RepositoryBase<Article>>();
+            services.AddTransient<IInfoArticleRepository<Article>, InfoArticleRepository<Article>>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

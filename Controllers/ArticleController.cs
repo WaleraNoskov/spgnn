@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Text;
@@ -48,6 +49,7 @@ namespace spgnn.Controllers
             var model = viewModel.Dto;
             if (needEdit)
             {
+                model.Date = DateTime.Now;
                 _articleRepository.Update(model);
                 return View(viewModel);
             }

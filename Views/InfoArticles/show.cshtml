@@ -1,0 +1,30 @@
+﻿@model spgnn.ViewModels.InfoArticlesListViewModel
+
+<div class="container">
+    <div class="row">
+        <div class="col">
+            <nav id="navbar-example3" class="navbar navbar-light bg-light">
+                <nav class="nav nav-pills flex-column align-items-stretch">
+                    @foreach (var item in Model.Articles)
+                    {
+                        <a class="nav-link" asp-action="Show" asp-controller="InfoArticles" asp-route-id="@item.Id">@item.Title</a>
+                    }
+                    <a asp-action="addoredit" asp-controller="InfoArticles" asp-route-id="-1">Добавить</a>
+                </nav>
+            </nav>
+        </div>
+
+        <div class="col-10">
+            <h5>
+                <b>
+                    @Model.CurrentArticle.Title
+                </b>
+                <a asp-action="addoredit" asp-controller="InfoArticles" asp-route-id=@Model.CurrentArticle.Id>Редактировать</a>
+            </h5>
+
+            <div>
+                <div style="word-break: break-all;">@Html.Raw(Model.CurrentArticle.Text)</div>
+            </div>
+        </div>
+    </div>
+</div>

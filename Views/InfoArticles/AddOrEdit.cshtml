@@ -1,0 +1,99 @@
+﻿@using spgnn.ViewModels;
+@model InfoAddOrEditViewModel;
+@{
+    ViewData["Title"] = Model.NeedEdit ? "Изменение записи" : "Добавление записи";
+}
+<h5>Добавление новой записи</h5>
+<form asp-controller="InfoArticles" asp-action="AddOrEdit" method="Post">
+    <input type="hidden" value="@Model.Dto.Id" asp-for="Dto.Id">
+    <input type="hidden" value="@Model.NeedEdit" asp-for="NeedEdit">
+    <div class="row">
+        <div class="twelve column">
+            <input type="text" class="u-full-width" placeholder="Заголовок" style="font-size: 2rem" asp-for="Dto.Title">
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="twelve column" style="margin-bottom: 1.5rem">
+            <textarea id="textEdit" class="u-full-width"  asp-for="Dto.Text">@(Model.Dto.Text)</textarea>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="twelve column">
+            @if (Model.NeedEdit)
+            {
+                <input class="button-primary" type="submit" value="Изменить">
+            }
+            else
+            {
+                <input class="button-primary" type="submit" value="Доабвить">
+            }
+        </div>
+    </div>
+
+</form>
+
+<!--Scripts-->
+<script src="https://cdn.tiny.cloud/1/6lfhp94kacgq91bzczponpzzm3gsg0o1fphst894zmgiv0k7/tinymce/5/tinymce.min.js"
+        referrerpolicy="origin"></script>
+<script type="text/javascript">
+    onDelete = function (editor) {
+        editor.on('KeyDown', function (e) {
+                
+        if ((e.keyCode == 8 || e.keyCode == 46) && editor.selection) {
+                
+            let selectedNode = editor.selection.getNode();
+                
+                if (selectedNode && selectedNode.nodeName == 'IMG') {
+                    let path = '/info/TinyDeleteImage?path=' + selectedNode.src;
+                    tinyMCE.util.XHR.send({
+                        url: path, 
+                        type: 'POST',
+                    })
+                    }
+                }
+            });
+        }
+
+    tinymce.init({
+        selector: 'textarea#textEdit',
+        language: 'ru',
+        toolbar: 'code | undo redo | formatselect | bold italic underline strikethrough forecolor | blockquote numlist bullist image link emoticons| export | table',
+        menubar: false,
+        min_height: 500,
+        plugins: 'code lists advlist emoticons autolink link image imagetools autoresize',
+        images_upload_url: '/info/TinyUpload?id=@Model.Dto.Id',
+        automatic_uploads: true,
+        block_unsupported_drop: false,
+        image_dimensions: false,
+        init_instance_callback: function (editor) {
+            editor.on('KeyDown', function (e) {
+                if ((e.keyCode == 8 || e.keyCode == 46) && editor.selection) {                                      
+                    let selectedNode = editor.selection.getNode();
+                    if (selectedNode && selectedNode.nodeName == 'IMG') {
+                    let path = '/info/TinyDeleteImage?path=' + selectedNode.src;
+                    console.log(path);
+                        tinyMCE.util.XHR.send({
+                            url: path, 
+                            type: 'POST',
+                        })
+                    }
+                }    
+            })
+        },
+        setup: function (editor) {
+                    editor.on('init', function(args) {
+                            editor = args.target;
+                    
+                            editor.on('NodeChange', function(e) {
+                                if (e && e.element.nodeName.toLowerCase() == 'img') {
+                                    tinyMCE.DOM.setAttribs(e.element, {'width': null, 'height': null, 'class': 'w-100 h-100'});
+                                }
+                            });
+                        });
+                }
+        
+    });
+</script>
+
