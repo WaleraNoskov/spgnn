@@ -1,3 +1,5 @@
+using System;
+using System.Collections.Generic;
 using System.IO;
 using Microsoft.AspNetCore.Mvc;
 using spgnn.DAL.Repositories;
@@ -13,21 +15,26 @@ namespace spgnn.Controllers
     {
         private IRepositoryBase<Article> _repository;
         private readonly IWebHostEnvironment _appEnvironment;
-        private int _pageCount;
+        private List<Article> Articles;
         public NewsListController(IRepositoryBase<Article> repository, IWebHostEnvironment appEnvironment)
         {
             this._repository = repository;
             this._appEnvironment = appEnvironment;
-            _pageCount = 0;
+            this.Articles = _repository.Query(x => x.Id >= 0).ToList();
         }
 
         [HttpGet]
         [ActionName("show")]
-        public IActionResult Show()
+        public IActionResult Show(int pageCount)
         {
-            var models = _repository.Query(x => x.Id >= _pageCount*10 && _pageCount <= _pageCount*10).ToList();
-
-            return View("show", new NewsListViewModel() {Articles = models});
+            if (Articles.Count == 0)
+            {
+                return RedirectToAction("AddOrEdit", "Article", new {id = -1});
+            }
+            
+            var realPageCount = (Articles.FirstOrDefault().Id/10)*10 + pageCount*10;
+            var models = _repository.Query(x => x.Id >= realPageCount && x.Id <= realPageCount+10).ToList();
+            return View("show", new NewsListViewModel() {Articles = models, PageCount = this.Articles.Count / 10, CurrentPage = pageCount});
         }
 
         [HttpGet]

@@ -6,5 +6,8 @@ namespace spgnn.ViewModels
     public class NewsListViewModel
     {
         public List<Article> Articles;
+        public int PageCount;
+        public int CurrentPage;
+        
     }
 }

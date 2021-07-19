@@ -28,6 +28,9 @@ namespace spgnn.Migrations
                     b.Property<DateTime>("Date")
                         .HasColumnType("TEXT");
 
+                    b.Property<string>("NoneImagesText")
+                        .HasColumnType("TEXT");
+
                     b.Property<string>("Text")
                         .HasColumnType("TEXT");
 

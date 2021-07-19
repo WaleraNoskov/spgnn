@@ -1,20 +1,145 @@
 @using spgnn.ViewModels;
+@using System.IO
+@using Microsoft.AspNetCore.Hosting
+@using Microsoft.AspNetCore.Identity
 @model NewsListViewModel;
+@inject IWebHostEnvironment AppEnvironment;
+@inject SignInManager<User> SignInManager
+@inject UserManager<User> UserManager
 
 <a asp-controller="Article" asp-action="AddOrEdit" asp-route-id=-1>Добавить</a>
+<div class="card-group">
+    @foreach (var item in Model.Articles)
+    {
+            @*<div class="card" style="margin: 0.8rem 0; ">
+                <div class="row me-0">
+                    @if (File.Exists($"{AppEnvironment.WebRootPath}/Files/{item.Id}/image0.jpg"))
+                    {
+                        <img src="~/Files/@item.Id/image0.jpg" class="col-3 img-fluid rounded-start" alt="" style="margin: 0; padding-right: 0">
+                    }
+                    <div class="col me-0" style="padding: 0">
+                        <div class="card-body h-100 d-flex flex-column me-0">
+                            <h5 class="card-title" style="margin-top: 0.2rem">
+                                @item.Title
+                            </h5>
+                            <p class="card-subtitle">@item.Date</p>
+                            <div class="mb-auto card-text" >
+                                @Html.Raw(item.NoneImagesText)
+                            </div>
+                            <div class="d-flex">
+                                <a class="me-auto" asp-controller="Article" asp-action="Show" asp-route-id=@item.Id asp-route-needEdit=@true>Подробнее</a>
+                                <a class="btn btn-outline-danger" style="border: none" asp-controller="NewsList" asp-action="delete" asp-route-id=@item.Id>
+                                    <div class="bi-x-circle"></div> 
+                                    Удалить
+                                </a>
+                                <a class="btn btn-outline-dark" style="border: none" asp-controller="Article" asp-action="AddOrEdit" asp-route-id=@item.Id asp-route-needEdit=@true>
+                                    <div class="bi-pencil"></div>
+                                    Изменить
+                                </a>
+                            </div>
+                        </div>
+                    </div>
 
-    <ul class="list-group">
-        @foreach (var item in Model.Articles)
-        {
-            <li style="list-style: none">
-                <div class="card">
+                </div>
+            </div>*@
+
+        <div class="card mb-3 shadow-3" style="max-width: 27rem;">
+            <div class="row g-0">
+                @if (File.Exists($"{AppEnvironment.WebRootPath}/Files/{item.Id}/image0.jpg"))
+                {
+                    <img src="~/Files/@item.Id/image0.jpg" class="img-fluid" alt="">
+                }
+                <div class="">
                     <div class="card-body">
-                        <h5 class="card-title">@item.Text</h5>
-                        <p class="card-text">@Html.Raw(item.Text)</p>
-                        <a class="btn btn-primary" asp-controller="Article" asp-action="AddOrEdit" asp-route-id=@item.Id asp-route-needEdit=@true>Редактировать</a>
-                        <a class="btn btn-primary" asp-controller="NewsList" asp-action="delete" asp-route-id=@item.Id>Удалить</a>
+                        <div class="d-flex">
+                            <h5 class="card-title me-auto">@item.Title</h5>
+                        
+                            <div class="dropdown">
+                                <a class="dropdown-toggle hidden-arrow me-3" href="#" role="button" id="dropdownMenuLink" data-mdb-toggle="dropdown" aria-expanded="false" style="font-size: 1.3rem; color: #4e555b"><i class="fas fa-ellipsis-h"></i></a>
+                                <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdownMenuLink">
+                                    <li><a class="dropdown-item" asp-controller="NewsList" asp-action="delete" asp-route-id=@item.Id>Удалить</a></li>
+                                    <li><a class="dropdown-item" asp-controller="Article" asp-action="AddOrEdit" asp-route-id=@item.Id asp-route-needEdit=@true>Изменить</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                        <p class="card-text">
+                            @Html.Raw(item.NoneImagesText)
+                        </p>
+
+                        <small class="text-muted">@item.AfterEditingDate</small>
+
+                    </div>
+                    <div class="card-body">
+                        <a class="card-link" asp-controller="Article" asp-action="Show" asp-route-id=@item.Id asp-route-needEdit=@true>Подробнее</a>
+                        @if (SignInManager.IsSignedIn(User))
+                        {
+                        
+                        }
                     </div>
                 </div>
+            </div>
+        </div>
+    }
+
+
+    @if (Model.Articles.Count == 0)
+    {
+        <div class="alert alert-primary" role="alert">
+            Больше новостей нет
+        </div>
+    }
+
+
+</div>
+<nav aria-label="Page navigation" >
+    <ul class="pagination justify-content-center">
+        @if (Model.CurrentPage == 0)
+        {
+            <li class="page-item disabled">
+                <a class="page-link" asp-action="show" asp-controller="NewsList" asp-route-pageCount="@(Model.CurrentPage - 1)">
+                    <span>&#60;</span>
+                </a>
+            </li>
+        }
+        else
+        {
+            <li class="page-item">
+                <a class="page-link" asp-action="show" asp-controller="NewsList" asp-route-pageCount="@(Model.CurrentPage - 1)">
+                    <span>&#60;</span>
+                </a>
+            </li>
+        }
+
+        @for (int i = 0; i <= Model.PageCount; i++)
+        {
+            if (i == Model.CurrentPage)
+            {
+                <li class="page-item active">
+                    <a class="page-link" asp-controller="NewsList" asp-action="show" asp-route-pageCount="@i">@(i + 1)</a>
+                </li>
+            }
+            else
+            {
+                <li class="page-item">
+                    <a class="page-link" asp-controller="NewsList" asp-action="show" asp-route-pageCount="@i">@i</a>
+                </li>
+            }
+        }
+        @if (Model.Articles.Count == 0)
+        {
+            <li class="page-item disabled">
+                <a class="page-link" asp-action="show" asp-controller="NewsList" asp-route-pageCount="@(Model.CurrentPage + 1)">
+                    <span>&#62;</span>
+                </a>
+            </li>
+        }
+        else
+        {
+            <li class="page-item">
+                <a class="page-link" asp-action="show" asp-controller="NewsList" asp-route-pageCount="@(Model.CurrentPage + 1)">
+                    <span>&#62;</span>
+                </a>
             </li>
         }
     </ul>
+</nav>

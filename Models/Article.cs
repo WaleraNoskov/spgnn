@@ -7,6 +7,7 @@ namespace spgnn.Models
     {
         public string Title { get; set; }
         public string Text { get; set; }
+        public string NoneImagesText { get; set; }
         public DateTime Date { get; set; }
         public DateTime AfterEditingDate { get; set; }
 

@@ -80,12 +80,14 @@ namespace spgnn.Controllers
             var path = "";
             if (uploadedFile != null)
             {
-                path = $"/Files/InfoArticles/{id}/" + uploadedFile.FileName;
                 var directory = _appEnvironment.WebRootPath + $"/Files/InfoArticles/{id}";
                 if (!Directory.Exists(directory))
                 {
                     Directory.CreateDirectory(directory);
                 }
+                var filesCount = Directory.GetDirectories(directory).Length + Directory.GetFiles(directory).Length;
+                var fileExtension = System.IO.Path.GetExtension(uploadedFile.FileName);
+                path = $"/Files/InfoArticles/{id}/image{filesCount}{fileExtension}";
 
                 using (var fileStream = new FileStream(_appEnvironment.WebRootPath + path, FileMode.Create))
                 {

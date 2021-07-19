@@ -47,14 +47,23 @@ namespace spgnn.Controllers
         public IActionResult AddOrEdit(AddOrEditViewModel viewModel, bool needEdit)
         {
             var model = viewModel.Dto;
+            if (model.Text != null)
+            {
+                var textEditPattern = new Regex(@"<img [\s*|\S*]*>");
+                model.NoneImagesText = textEditPattern.Replace(model.Text, " <i>Фотография</i> ");
+                textEditPattern = new Regex(@"</p>[\s|\S]*");
+                model.NoneImagesText = textEditPattern.Replace(model.Text, "</p>");
+            }
+
             if (needEdit)
             {
-                model.Date = DateTime.Now;
+                model.AfterEditingDate = DateTime.Now;
                 _articleRepository.Update(model);
                 return View(viewModel);
             }
             else
             {
+                model.Date = DateTime.Now;
                 _articleRepository.Insert(model);
                 return View(viewModel);
             }
@@ -67,12 +76,15 @@ namespace spgnn.Controllers
             var path = "";
             if (uploadedFile != null)
             {
-                path = $"/Files/{id}/" + uploadedFile.FileName;
                 var directory = _appEnvironment.WebRootPath + $"/Files/{id}";
                 if (!Directory.Exists(directory))
                 {
                     Directory.CreateDirectory(directory);
                 }
+                var filesCount = Directory.GetDirectories(directory).Length + Directory.GetFiles(directory).Length;
+                var fileExtension = System.IO.Path.GetExtension(uploadedFile.FileName);
+                path = $"/Files/{id}/image{filesCount}{fileExtension}";
+                
 
                 using (var fileStream = new FileStream(_appEnvironment.WebRootPath + path, FileMode.Create))
                 {

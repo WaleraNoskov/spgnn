@@ -2,17 +2,29 @@
 <html lang="en">
 
 <head>
-    <meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <title>@ViewData["Title"] - spgnn</title>
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Raleway">
+    @*<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css">*@
     <link rel="stylesheet" href="~/css/bootstrap.custom.css"/>
-    <link rel="stylesheet" href="~/css/site.css"/>
+    <meta charset="utf-8"/>
+
+    @*
+    <!--Material Kit-->
+    <link href="~/lib/material-kit/assets/css/material-kit.css" rel="stylesheet" />
+    <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Roboto+Slab:400,700|Material+Icons" />
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css">
+    *@
+    
+    <!--mdb5-ui-->
+    <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap" rel="stylesheet"/>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css" rel="stylesheet"/>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/3.6.0/mdb.min.css" rel="stylesheet"
+    />
 </head>
 
 <body>
-<header class="container">
-    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+<header>
+    @*<nav class="navbar navbar-expand-lg navbar-light bg-light justify-content-center">
         <div class="container-fluid">
             <a class="navbar-brand" asp-controller="Home" asp-action="Index">Семеновская православная гимназия</a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -21,7 +33,7 @@
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                     <li class="nav-item">
-                        <a class="nav-link" asp-controller="NewsList" asp-action="show">Новости</a>
+                        <a class="nav-link" asp-controller="NewsList" asp-action="show" asp-route-pageCount="0">Новости</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" asp-controller="InfoArticles" asp-action="Show" asp-route-id="-1">Сведения</a>
@@ -30,6 +42,29 @@
                 </ul>
             </div>
         </div>
+    </nav>*@
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+      <div class="container">
+        <a class="navbar-brand" href="javascript:;">Navbar</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="navbar-toggler-icon"></span>
+        <span class="navbar-toggler-icon"></span>
+        <span class="navbar-toggler-icon"></span>
+        </button>
+          <div class="collapse navbar-collapse" id="navbarSupportedContent">
+              <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                  <li class="nav-item">
+                      <a class="nav-link" asp-controller="NewsList" asp-action="show" asp-route-pageCount="0">Новости</a>
+                  </li>
+                  <li class="nav-item">
+                      <a class="nav-link" asp-controller="InfoArticles" asp-action="Show" asp-route-id="-1">Сведения</a>
+                  </li>
+              
+              </ul>
+          </div>
+          @Html.PartialAsync("LoginPartial").Result
+      </div>
     </nav>
 </header>
 <div class="container">
@@ -38,15 +73,38 @@
     </main>
 </div>
 
-<footer class="border-top footer text-muted">
+@*<footer class="border-top footer text-muted">
     <div class="container">
         &copy; 2020 - spgnn - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
     </div>
-</footer>
+</footer>*@
 <script src="~/lib/jquery/dist/jquery.min.js"></script>
 <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
 <script src="~/js/site.js" asp-append-version="true"></script>
 @await RenderSectionAsync("Scripts", required: false)
+
+@*<!--Material Kit-->
+<!--   Core JS Files   -->
+<script src="~/lib/material-kit/assets/js/core/jquery.min.js" type="text/javascript"></script>
+<script src="~/lib/material-kit/assets/js/core/popper.min.js" type="text/javascript"></script>
+<script src="~/lib/material-kit/assets/js/core/bootstrap-material-design.min.js" type="text/javascript"></script>
+<script src="~/lib/material-kit/assets/js/plugins/moment.min.js"></script>
+<!--	Plugin for the Datepicker, full documentation here: https://github.com/Eonasdan/bootstrap-datetimepicker -->
+<script src="~/lib/material-kit/assets/js/plugins/bootstrap-datetimepicker.js" type="text/javascript"></script>
+<!--  Plugin for the Sliders, full documentation here: http://refreshless.com/nouislider/ -->
+<script src="~/lib/material-kit/assets/js/plugins/nouislider.min.js" type="text/javascript"></script>
+<!--  Google Maps Plugin  -->
+<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=YOUR_KEY_HERE"></script>
+<!-- Place this tag in your head or just before your close body tag. -->
+<script async defer src="https://buttons.github.io/buttons.js"></script>
+<!-- Control Center for Material Kit: parallax effects, scripts for the example pages etc -->
+<script src="~/lib/material-kit/assets/js/material-kit.js?v=2.0.4" type="text/javascript"></script>*@
+
+<!-- MDB -->
+<script
+  type="text/javascript"
+  src="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/3.6.0/mdb.min.js"
+></script>
 </body>
 
 

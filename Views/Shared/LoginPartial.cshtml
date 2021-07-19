@@ -3,11 +3,10 @@
 @inject UserManager<User> UserManager
 
 @if(SignInManager.IsSignedIn(User)) {
-<li class="nav-item dropdown">
-        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+    <a class="text-reset me-3 dropdown-toggle hidden-arrow" href="#" id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
             @UserManager.GetUserName(User)
         </a>
-        <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+        <ul class="dropdown-menu " aria-labelledby="navbarDropdown">
             <li>
                 <a class="dropdown-item" asp-controller="Account" asp-action="Edit" asp-route-id="@UserManager.GetUserId(User)">Редактировать</a>
             </li>
@@ -15,12 +14,10 @@
                 <a class="dropdown-item" asp-controller="Account" asp-action="Logout">Выйти</a>
             </li>
         </ul>
-    </li>
 }
 else
 {
-    <li class="nav-item dropdown">
-        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+    <a class="text-reset me-3 dropdown-toggle hidden-arrow" href="#" id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
             Вход на сайт
         </a>
         <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
@@ -31,5 +28,4 @@ else
                 <a class="dropdown-item" asp-controller="Account" asp-action="StartLogin">Войти</a>
             </li>
         </ul>
-    </li>
 }

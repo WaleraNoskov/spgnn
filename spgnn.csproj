@@ -33,10 +33,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="wwwroot\Files" />
-  </ItemGroup>
-
-  <ItemGroup>
     <_ContentIncludedByDefault Remove="wwwroot\Files\10\blobid0.jpg" />
     <_ContentIncludedByDefault Remove="wwwroot\lib\bootstrap\dist\css\.DS_Store" />
     <_ContentIncludedByDefault Remove="wwwroot\lib\bootstrap\dist\css\bootstrap-grid.css" />
@@ -60,6 +56,51 @@
     <_ContentIncludedByDefault Remove="wwwroot\lib\bootstrap\dist\js\bootstrap.min.js" />
     <_ContentIncludedByDefault Remove="wwwroot\lib\bootstrap\dist\js\bootstrap.min.js.map" />
     <_ContentIncludedByDefault Remove="wwwroot\lib\bootstrap\LICENSE" />
+    <_ContentIncludedByDefault Remove="wwwroot\themes\cerulean\bootstrap.css" />
+    <_ContentIncludedByDefault Remove="wwwroot\themes\cerulean\bootstrap.min.css" />
+    <_ContentIncludedByDefault Remove="wwwroot\themes\cerulean\_bootswatch.scss" />
+    <_ContentIncludedByDefault Remove="wwwroot\themes\cerulean\_variables.scss" />
+    <_ContentIncludedByDefault Remove="wwwroot\themes\cyborg\bootstrap.css" />
+    <_ContentIncludedByDefault Remove="wwwroot\themes\cyborg\bootstrap.min.css" />
+    <_ContentIncludedByDefault Remove="wwwroot\themes\cyborg\_bootswatch.scss" />
+    <_ContentIncludedByDefault Remove="wwwroot\themes\cyborg\_variables.scss" />
+    <_ContentIncludedByDefault Remove="wwwroot\themes\flatly\bootstrap.css" />
+    <_ContentIncludedByDefault Remove="wwwroot\themes\flatly\bootstrap.min.css" />
+    <_ContentIncludedByDefault Remove="wwwroot\themes\flatly\_bootswatch.scss" />
+    <_ContentIncludedByDefault Remove="wwwroot\themes\flatly\_variables.scss" />
+    <_ContentIncludedByDefault Remove="wwwroot\themes\litera\bootstrap.css" />
+    <_ContentIncludedByDefault Remove="wwwroot\themes\litera\bootstrap.min.css" />
+    <_ContentIncludedByDefault Remove="wwwroot\themes\litera\_bootswatch.scss" />
+    <_ContentIncludedByDefault Remove="wwwroot\themes\litera\_variables.scss" />
+    <_ContentIncludedByDefault Remove="wwwroot\themes\lux\bootstrap.css" />
+    <_ContentIncludedByDefault Remove="wwwroot\themes\lux\bootstrap.min.css" />
+    <_ContentIncludedByDefault Remove="wwwroot\themes\lux\_bootswatch.scss" />
+    <_ContentIncludedByDefault Remove="wwwroot\themes\lux\_variables.scss" />
+    <_ContentIncludedByDefault Remove="wwwroot\themes\minty\bootstrap.css" />
+    <_ContentIncludedByDefault Remove="wwwroot\themes\minty\bootstrap.min.css" />
+    <_ContentIncludedByDefault Remove="wwwroot\themes\minty\_bootswatch.scss" />
+    <_ContentIncludedByDefault Remove="wwwroot\themes\minty\_variables.scss" />
+    <_ContentIncludedByDefault Remove="wwwroot\themes\pulse\bootstrap.css" />
+    <_ContentIncludedByDefault Remove="wwwroot\themes\pulse\bootstrap.min.css" />
+    <_ContentIncludedByDefault Remove="wwwroot\themes\pulse\_bootswatch.scss" />
+    <_ContentIncludedByDefault Remove="wwwroot\themes\pulse\_variables.scss" />
+    <_ContentIncludedByDefault Remove="wwwroot\themes\sandstone\bootstrap.css" />
+    <_ContentIncludedByDefault Remove="wwwroot\themes\sandstone\bootstrap.min.css" />
+    <_ContentIncludedByDefault Remove="wwwroot\themes\sandstone\_bootswatch.scss" />
+    <_ContentIncludedByDefault Remove="wwwroot\themes\sandstone\_variables.scss" />
+    <_ContentIncludedByDefault Remove="wwwroot\themes\sketchy\bootstrap.css" />
+    <_ContentIncludedByDefault Remove="wwwroot\themes\sketchy\bootstrap.min.css" />
+    <_ContentIncludedByDefault Remove="wwwroot\themes\sketchy\_bootswatch.scss" />
+    <_ContentIncludedByDefault Remove="wwwroot\themes\sketchy\_variables.scss" />
+    <_ContentIncludedByDefault Remove="wwwroot\themes\solar\bootstrap.css" />
+    <_ContentIncludedByDefault Remove="wwwroot\themes\solar\bootstrap.min.css" />
+    <_ContentIncludedByDefault Remove="wwwroot\themes\solar\_bootswatch.scss" />
+    <_ContentIncludedByDefault Remove="wwwroot\themes\solar\_variables.scss" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="wwwroot\Files" />
+    <Folder Include="wwwroot\Files\33" />
   </ItemGroup>
 
 </Project>
