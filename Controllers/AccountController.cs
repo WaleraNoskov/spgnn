@@ -58,14 +58,14 @@ namespace spgnn.Controllers
             return View();
         }
             
-        [ActionName("StartLogin")]
+        [ActionName("Login")]
         public IActionResult Login()
         {
             return View();
         }
 
         [HttpPost]
-        [ActionName("EndLogin")]
+        [ActionName("Login")]
         public async Task<IActionResult> Login(LoginViewModel model)
         {
             if (ModelState.IsValid)
@@ -75,17 +75,20 @@ namespace spgnn.Controllers
                 var user = await _userManager.FindByNameAsync(model.UserName);
                 if (user != null)
                 {
-                    await _signInManager.SignInAsync(user, false);
+                    var result = _signInManager.PasswordSignInAsync(model.UserName, model.Password, true, false);
+                    if (result.Result.Succeeded)
+                    {
+                        return RedirectToAction("Index", "Home");
+                    }
+                    else
+                    {
+                        ModelState.AddModelError("login/password incorrect", "Логин/Пароль неверный");
+                    }
                 }
                 else
                 {
                     ModelState.AddModelError("usernotfound", "Пользователь не найден");
                 }
-                return RedirectToAction("Index", "Home");
-            }
-            else
-            {
-                ModelState.AddModelError("loginpassworderror", "Не указан логин/пароль");
             }
 
             return View();

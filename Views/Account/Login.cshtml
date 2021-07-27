@@ -1,0 +1,62 @@
+﻿@using spgnn.ViewModels;
+@model LoginViewModel;
+
+@{
+    ViewData["Title"] = "Вход в учетную запись администратора";
+}
+
+<div class="d-flex h-100 align-items-center justify-content-center">
+    <div class="card shadow-3-strong">
+        <div class="card-body">
+            <h3 class="mb-3">Вход в учетную запись администратора</h3>
+            <form asp-controller="Account" asp-action="Login" method="post">
+                <div class="mb-3">
+                    <label class="form-label">Логин</label>
+                    <input class="form-control" type="text" asp-for="UserName" placeholder="Логин"/>
+                    <div class="form-text" style="color: #F93154">
+                        <span asp-validation-for="UserName"></span>
+                    </div>
+                </div>
+                <div class="mb-3 input-group">
+                    <input id="passwordBox" class="form-control" type="password" asp-for="Password" placeholder="Пароль">
+                    <button type="button" class="input-group-text" onclick="showPass()">
+                        <i id="setVisibleIcon" class="fas fa-eye"></i>
+                    </button>
+                </div>
+                <div class="form-text" style="color: #F93154">
+                    <span asp-validation-for="Password"></span>
+                </div>
+                <div class="form-text">
+                    <span>
+                        @foreach (var modelState in ViewData.ModelState.Values)
+                        {
+                            foreach (var error in modelState.Errors)
+                            {
+                                <p style="color: #F93154">&#8226; @error.ErrorMessage</p>
+                            }
+                        }
+                    </span>
+                </div>
+                <div class="mb-3 d-flex">
+                    <button type="submit" class="ms-auto btn btn-primary">Вход</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<script>
+function showPass() {
+        const passBox = document.getElementById('passwordBox');
+        const visibleIcon = document.getElementById('setVisibleIcon');
+        if (passBox.type === 'password'){
+                passBox.type = "text";
+                visibleIcon.className = 'fas fa-eye-slash';
+            }
+        else{
+            passBox.type = "password";    
+            visibleIcon.className = 'fas fa-eye';
+        }
+        
+        
+    }
+</script>

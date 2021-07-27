@@ -3,34 +3,28 @@
 @{
     ViewData["Title"] = Model.NeedEdit ? "Изменение записи" : "Добавление записи";
 }
-<h5>Добавление новой записи</h5>
+<h3 class="mb-3">Добавление новой записи</h3>
 <form asp-controller="InfoArticles" asp-action="AddOrEdit" method="Post">
     <input type="hidden" value="@Model.Dto.Id" asp-for="Dto.Id">
     <input type="hidden" value="@Model.NeedEdit" asp-for="NeedEdit">
-    <div class="row">
-        <div class="twelve column">
-            <input type="text" class="u-full-width" placeholder="Заголовок" style="font-size: 2rem" asp-for="Dto.Title">
-        </div>
+    <div class="mb-3">
+        <h3><input type="text" class="form-control form-control-lg" placeholder="Заголовок"  asp-for="Dto.Title"></h3>
+    </div>
+    <div class="mb-3">
+        <textarea id="textEdit" class="form-control"  asp-for="Dto.Text">@(Model.Dto.Text)</textarea>
+    </div>
+    <div class="mb-3 d-flex">
+        @if (Model.NeedEdit)
+        {
+            <a class="btn btn-danger" asp-controller="InfoArticles" asp-action="delete" asp-route-id="@Model.Dto.Id" onclick="return confirm('Вы точно хотите удалить эту запись?')">Удалить</a>
+            <input class="btn btn-primary ms-auto" type="submit" value="Изменить">
+        }
+        else
+        {
+            <input class="btn btn-primary ms-auto" type="submit" value="Доабвить">
+        }
     </div>
 
-    <div class="row">
-        <div class="twelve column" style="margin-bottom: 1.5rem">
-            <textarea id="textEdit" class="u-full-width"  asp-for="Dto.Text">@(Model.Dto.Text)</textarea>
-        </div>
-    </div>
-
-    <div class="row">
-        <div class="twelve column">
-            @if (Model.NeedEdit)
-            {
-                <input class="button-primary" type="submit" value="Изменить">
-            }
-            else
-            {
-                <input class="button-primary" type="submit" value="Доабвить">
-            }
-        </div>
-    </div>
 
 </form>
 
@@ -58,15 +52,18 @@
 
     tinymce.init({
         selector: 'textarea#textEdit',
+        visual_table_class: 'table',
         language: 'ru',
-        toolbar: 'code | undo redo | formatselect | bold italic underline strikethrough forecolor | blockquote numlist bullist image link emoticons| export | table',
+        toolbar: 'code | undo redo | formatselect | bold italic underline strikethrough forecolor pastetext | blockquote numlist bullist image link emoticons| export | table',
         menubar: false,
         min_height: 500,
-        plugins: 'code lists advlist emoticons autolink link image imagetools autoresize',
+        max_height: 700,
+        plugins: 'code lists advlist emoticons autolink link image imagetools autoresize paste table',
         images_upload_url: '/info/TinyUpload?id=@Model.Dto.Id',
         automatic_uploads: true,
         block_unsupported_drop: false,
         image_dimensions: false,
+        
         init_instance_callback: function (editor) {
             editor.on('KeyDown', function (e) {
                 if ((e.keyCode == 8 || e.keyCode == 46) && editor.selection) {                                      
@@ -96,4 +93,3 @@
         
     });
 </script>
-

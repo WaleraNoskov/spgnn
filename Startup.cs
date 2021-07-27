@@ -46,7 +46,14 @@ namespace spgnn
             connectionStringIdentity = connectionString.Replace("/this", Directory.GetCurrentDirectory());
             services.AddDbContext<IdentityContext>(options => options.UseSqlite(connectionStringIdentity).UseLazyLoadingProxies());
 
-            services.AddIdentity<User, IdentityRole>().AddEntityFrameworkStores<IdentityContext>();
+            services.AddIdentity<User, IdentityRole>(options =>
+                    {
+                        options.Password.RequiredLength = 6;
+                        options.Password.RequireNonAlphanumeric = false;
+                        options.Password.RequireUppercase = false;
+                    }
+                )
+                .AddEntityFrameworkStores<IdentityContext>();
             services.AddTransient<IRepositoryBase<Article>, RepositoryBase<Article>>();
             services.AddTransient<IInfoArticleRepository<Article>, InfoArticleRepository<Article>>();
         }

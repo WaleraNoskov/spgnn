@@ -1,30 +1,53 @@
 ﻿@model spgnn.ViewModels.InfoArticlesListViewModel
 
-<div class="container">
+<div class="container-fluid p-0 m-0">
     <div class="row">
-        <div class="col">
-            <nav id="navbar-example3" class="navbar navbar-light bg-light">
-                <nav class="nav nav-pills flex-column align-items-stretch">
-                    @foreach (var item in Model.Articles)
-                    {
-                        <a class="nav-link" asp-action="Show" asp-controller="InfoArticles" asp-route-id="@item.Id">@item.Title</a>
-                    }
-                    <a asp-action="addoredit" asp-controller="InfoArticles" asp-route-id="-1">Добавить</a>
-                </nav>
-            </nav>
-        </div>
+        <div class="col-xl-9">
+            <div class="card shadow-1-strong" id="scrollElm">
+                <div class="card-body">
+                    <h3 class="mb-3 card-title">@Model.CurrentArticle.Title</h3>
 
-        <div class="col-10">
-            <h5>
-                <b>
-                    @Model.CurrentArticle.Title
-                </b>
-                <a asp-action="addoredit" asp-controller="InfoArticles" asp-route-id=@Model.CurrentArticle.Id>Редактировать</a>
-            </h5>
 
-            <div>
-                <div style="word-break: break-all;">@Html.Raw(Model.CurrentArticle.Text)</div>
+                    <div class="card-text">
+                        @Html.Raw(Model.CurrentArticle.Text)
+                    </div>
+                </div>
             </div>
         </div>
+        <div class="col-xl-3 ">
+            <div class="sticky-xl-top">
+                <div style="height: 0;" id="stickyTrigger"></div>
+                @Html.PartialAsync("InfoPageLoginPartial").Result
+                <div class="card mb-3 shadow-1-strong">
+                    <ul class="list-group list-group-flush">
+                        @foreach (var article in Model.Articles)
+                        {
+                            <a class="list-group-item btn-outline-light text-black" asp-controller="InfoArticles" asp-action="Show" style="border-bottom-color: #BDBDBD" asp-route-id="@article.Id">
+                                <small class="d-flex">
+                                    @article.Title
+                                </small>
+
+                            </a>
+                        }
+                    </ul>
+                </div>
+            </div>
+
+    
+        </div>
+
+        
     </div>
 </div>
+
+<script>
+setInterval(function setTrueSticky(){
+                const stickyElm = document.getElementById('stickyTrigger');
+                if(pageYOffset >= 45){
+                    stickyElm.style.height = '1.5rem';  
+                }
+                else {
+                    stickyElm.style.height = '0';   
+                }
+            }, 10)
+</script>

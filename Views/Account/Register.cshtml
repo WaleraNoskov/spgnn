@@ -1,33 +1,64 @@
 ﻿@model spgnn.ViewModels.RegisterViewModel;
 @{
-    ViewData["Title"] = "Добавление пользователя";
+    ViewData["Title"] = "Добавление администратора";
 }
-<h5>Добавление нового пользователя</h5>
-<form method="post" asp-action="Register" asp-controller="Account">
-    <div class="row">
-        <input class="five columns"  type="text" asp-for="UserName" placeholder="Имя пользователя">
-        <span class="seven columns" asp-validation-for="UserName"></span>
-    </div>
-    
-    <div class="row">
-        <input class="five columns" type="email" asp-for="Email" placeholder="Email">
-        <span class="seven columns" asp-validation-for="Email"></span>
-    </div>
+<div class=" d-flex align-items-center justify-content-center">
+    <div class="card shadow-3-strong">
+        <div class="card-body ">
+            <h3 class="mb-3">Добавление нового пользователя</h3>
+            <form method="post" asp-action="Register" asp-controller="Account">
+                <div class="mb-3">
+                    <label class="form-label">Имя пользователя</label>
+                    <input class="form-control" type="text" asp-for="UserName">
+                    <div class="form-text" style="color: #F93154"><span asp-validation-for="UserName"></span></div>
+                </div>
 
-    <div class="row">
-        <input class="five columns" type="text" asp-for="Password" placeholder="Пароль">
-        <span class="seven columns" asp-validation-for="Password"></span>
-    </div>
+                <div class="mb-3">
+                    <label class="form-label">Адресс электронной почты</label>
+                    <input class="form-control" type="email" asp-for="Email">
+                    <div class="form-text" style="color: #F93154"><span asp-validation-for="Email"></span></div>
+                </div>
 
-    <div class="row">
-        <input class="five columns" type="text" asp-for="ConfirmPassword" placeholder="Подтвердите пароль">
-        <span class="seven columns" asp-validation-for="ConfirmPassword"></span>
-    </div>
+                <div class="mb-3">
+                    <label class="form-label">Пароль</label>
+                    <div class="input-group">
+                        <input id="passwordBox" class="form-control" type="password" asp-for="Password">
+                        <button type="button" class="input-group-text" onclick="showPass()">
+                            <i id="setVisibleIcon" class="fas fa-eye"></i>
+                        </button>
+                    </div>
+                    <div class="form-text" style="color: #F93154"><span asp-validation-for="Password"></span></div>
+                </div>
 
-    <div class="row">
-        <div class="twelve columns">
-            <input class="button-primary" type="submit" value="Регистрация">
+                <div class="mb-3">
+                    <label class="form-label">Подтвердите пароль</label>
+                    <input class="form-control" type="password" asp-for="ConfirmPassword">
+                    <div class="form-text" style="color: #F93154"><span asp-validation-for="ConfirmPassword"></span></div>
+                </div>
+
+                <div class="mb-3 d-flex">
+                    <input class="btn btn-primary ms-auto" type="submit" value="Регистрация">
+                </div>
+            </form>
+        </div>
+        <div class="card-footer text-muted small">
+            Пароль должен содержать минимум 6 символов, и хотя бы одну цифру
         </div>
     </div>
-</form>
-
+</div>
+<script>
+function showPass() {
+        const passBox = document.getElementById('passwordBox');
+        const visibleIcon = document.getElementById('setVisibleIcon');
+        if (passBox.type === 'password'){
+                passBox.type = "text";
+                visibleIcon.className = 'fas fa-eye-slash';
+            }
+        else{
+            passBox.type = "password";    
+            visibleIcon.className = 'fas fa-eye';
+        }
+        
+        
+    }
+</script>

@@ -125,6 +125,20 @@ namespace spgnn.Controllers
             System.IO.File.Delete(deletablePath);
             return null;
         }
+        
+        [HttpGet]
+        [ActionName("delete")]
+        public IActionResult Delete(int id)
+        {
+            var article = _repository.Find(id);
+            _repository.Remove(article);
+
+            var dir = _appEnvironment.WebRootPath + $"/Files/InfoArticles/{id}";
+            if(Directory.Exists(dir))
+                Directory.Delete(dir, true);
+            
+            return RedirectToAction("Show", new {id = -1});
+        }
     }
 }
 

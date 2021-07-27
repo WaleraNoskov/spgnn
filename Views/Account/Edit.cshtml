@@ -1,27 +1,106 @@
 ﻿@model spgnn.ViewModels.EditUserViewModel
 
-<form asp-controller="Account" asp-action="Edit" method="post">
-    <input type="hidden" value="@Model.Id" asp-for="Id">
-    <div class="mb-3">
-        <label for="name" class="form-label">Имя пользователя</label>
-        <input type="text" class="form-control" id="name" asp-for="UserName">
+@{
+    ViewData["Title"] = "Изменение данных администратора";
+}
+<div class="h-100 d-flex align-items-center justify-content-center">
+    <div class="card shadow-3-strong">
+        <div class="card-body ">
+            <h3 class="mb-3">Изменение данных администратора</h3>
+            <form asp-controller="Account" asp-action="Edit" method="post">
+                <input type="hidden" value="@Model.Id" asp-for="Id">
+                <div class="mb-3">
+                    <label for="name" class="form-label">Имя пользователя</label>
+                    <input type="text" class="form-control" id="name" asp-for="UserName">
+                    <div class="form-text" style="color: #F93154">
+                        <span asp-validation-for="UserName"></span>
+                    </div>
+                </div>
+                <div class="mb-3">
+                    <label for="email" class="form-label">Адресс электронной почты</label>
+                    <input type="email" class="form-control" id="email" asp-for="Email">
+                    <div class="form-text" style="color: #F93154">
+                        <span asp-validation-for="Email"></span>
+                    </div>
+                </div>
+                <div class="mb-3">
+                    <label for="oldPassword" class="form-label">Старый пароль (необязательно)</label>
+                    <div class="input-group">
+                        <input type="password" class="form-control" asp-for="OldPassword" id="oldPassword">
+                        <button type="button" class="input-group-text" onclick="showOldPass()">
+                            <i id="setVisibleIconOld" class="fas fa-eye"></i>
+                        </button>
+                        <div class="form-text" style="color: #F93154">
+                            <span asp-validation-for="OldPassword"></span>
+                        </div>
+                    </div>
+                </div>
+                <div class="mb-3">
+                    <label for="password" class="form-label">Пароль (необязательно)</label>
+                    <div class="input-group">
+                        <input type="password" class="form-control" asp-for="Password" id="password">
+                        <button type="button" class="input-group-text" onclick="showPass()">
+                            <i id="setVisibleIcon" class="fas fa-eye"></i>
+                        </button>
+                        <div class="form-text" style="color: #F93154">
+                            <span asp-validation-for="Password"></span>
+                        </div>
+                    </div>
+                </div>
+                <div class="mb-3">
+                    <label for="passwordCompare" class="form-label">Повторите пароль (необязательно)</label>
+                    <input type="password" class="form-control" asp-for="ConfirmPassword" id="passwordCompare">
+                    <div class="form-text" style="color: #F93154">
+                        <span asp-validation-for="Password"></span>
+                    </div>
+                </div>
+                <div class="form-text">
+                    <span>
+                        @foreach (var modelState in ViewData.ModelState.Values)
+                        {
+                            foreach (var error in modelState.Errors)
+                            {
+                                <p style="color: #F93154">&#8226; @error.ErrorMessage</p>
+                            }
+                        }
+                    </span>
+                </div>
+                <div class="d-flex">
+                    <button class="btn btn-danger me-auto" asp-controller="Account" asp-action="Delete" asp-route-id="@Model.Id" onclick="return confirm('Вы уверены, что хотите удалить учетную запись?')">Удалить</button>
+                    <input type="submit" class="btn btn-primary" value="Изменить">
+                </div>
+            </form>
+        </div>
+        <div class="card-footer text-muted small">
+                    Пароль должен содержать минимум 6 символов, и хотя бы одну цифру
+                </div>
     </div>
-    <div class="mb-3">
-        <label for="email" class="form-label">Email address</label>
-        <input type="email" class="form-control" id="email" asp-for="Email" placeholder="name@example.com">
-    </div>
-    <div class="mb-3">
-        <label for="oldPassword" class="form-label">Старый пароль (необязательно)</label>
-        <input type="password" class="form-control" asp-for="OldPassword" id="oldPassword">
-    </div>
-    <div class="mb-3">
-        <label for="password" class="form-label">Пароль (необязательно)</label>
-        <input type="password" class="form-control" asp-for="Password" id="password">
-    </div>
-    <div class="mb-3">
-        <label for="passwordCompare" class="form-label">Повторите пароль (необязательно)</label>
-        <input type="password" class="form-control" asp-for="ConfirmPassword" id="passwordCompare">
-    </div>
-    <input type="submit" class="btn btn-primary" value="Изменить">
-    <button class="btn btn-primary" asp-controller="Account" asp-action="Delete" asp-route-id="@Model.Id">Удалить</button>
-</form>
+</div>
+
+<script>
+function showPass() {
+        const passBox = document.getElementById('password');
+        const visibleIcon = document.getElementById('setVisibleIcon');
+        if (passBox.type === 'password'){
+                passBox.type = "text";
+                visibleIcon.className = 'fas fa-eye-slash';
+            }
+        else{
+            passBox.type = "password";    
+            visibleIcon.className = 'fas fa-eye';
+        }        
+    } 
+    
+function showOldPass() {
+        const passBox = document.getElementById('oldPassword');
+        const visibleIcon = document.getElementById('setVisibleIconOld');
+        if (passBox.type === 'password'){
+                passBox.type = "text";
+                visibleIcon.className = 'fas fa-eye-slash';
+            }
+        else{
+            passBox.type = "password";    
+            visibleIcon.className = 'fas fa-eye';
+        }        
+    } 
+</script>
