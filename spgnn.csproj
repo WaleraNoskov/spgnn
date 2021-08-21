@@ -96,6 +96,17 @@
     <_ContentIncludedByDefault Remove="wwwroot\themes\solar\bootstrap.min.css" />
     <_ContentIncludedByDefault Remove="wwwroot\themes\solar\_bootswatch.scss" />
     <_ContentIncludedByDefault Remove="wwwroot\themes\solar\_variables.scss" />
+    <_ContentIncludedByDefault Remove="wwwroot\themes\startbootstrap-clean-blog-gh-pages\about.html" />
+    <_ContentIncludedByDefault Remove="wwwroot\themes\startbootstrap-clean-blog-gh-pages\assets\img\about-bg.jpg" />
+    <_ContentIncludedByDefault Remove="wwwroot\themes\startbootstrap-clean-blog-gh-pages\assets\img\contact-bg.jpg" />
+    <_ContentIncludedByDefault Remove="wwwroot\themes\startbootstrap-clean-blog-gh-pages\assets\img\home-bg.jpg" />
+    <_ContentIncludedByDefault Remove="wwwroot\themes\startbootstrap-clean-blog-gh-pages\assets\img\post-bg.jpg" />
+    <_ContentIncludedByDefault Remove="wwwroot\themes\startbootstrap-clean-blog-gh-pages\assets\img\post-sample-image.jpg" />
+    <_ContentIncludedByDefault Remove="wwwroot\themes\startbootstrap-clean-blog-gh-pages\contact.html" />
+    <_ContentIncludedByDefault Remove="wwwroot\themes\startbootstrap-clean-blog-gh-pages\css\styles.css" />
+    <_ContentIncludedByDefault Remove="wwwroot\themes\startbootstrap-clean-blog-gh-pages\index.html" />
+    <_ContentIncludedByDefault Remove="wwwroot\themes\startbootstrap-clean-blog-gh-pages\js\scripts.js" />
+    <_ContentIncludedByDefault Remove="wwwroot\themes\startbootstrap-clean-blog-gh-pages\post.html" />
   </ItemGroup>
 
   <ItemGroup>

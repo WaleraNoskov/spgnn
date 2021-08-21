@@ -2,133 +2,66 @@
 @using System.IO
 @using Microsoft.AspNetCore.Hosting
 @using Microsoft.AspNetCore.Identity
+@using spgnn.DAL.Repositories
 @model NewsListViewModel;
 @inject IWebHostEnvironment AppEnvironment;
 @inject SignInManager<User> SignInManager
 @inject UserManager<User> UserManager
+@inject ISectionsRepository<Article> SectionsRepository;
+@inject IRepositoryBase<Article> NewsRepository;
 
-<a asp-controller="Article" asp-action="AddOrEdit" asp-route-id=-1>Добавить</a>
-<div class="card-group">
-    @foreach (var item in Model.Articles)
-    {
-            @*<div class="card" style="margin: 0.8rem 0; ">
-                <div class="row me-0">
-                    @if (File.Exists($"{AppEnvironment.WebRootPath}/Files/{item.Id}/image0.jpg"))
-                    {
-                        <img src="~/Files/@item.Id/image0.jpg" class="col-3 img-fluid rounded-start" alt="" style="margin: 0; padding-right: 0">
-                    }
-                    <div class="col me-0" style="padding: 0">
-                        <div class="card-body h-100 d-flex flex-column me-0">
-                            <h5 class="card-title" style="margin-top: 0.2rem">
-                                @item.Title
-                            </h5>
-                            <p class="card-subtitle">@item.Date</p>
-                            <div class="mb-auto card-text" >
-                                @Html.Raw(item.NoneImagesText)
-                            </div>
-                            <div class="d-flex">
-                                <a class="me-auto" asp-controller="Article" asp-action="Show" asp-route-id=@item.Id asp-route-needEdit=@true>Подробнее</a>
-                                <a class="btn btn-outline-danger" style="border: none" asp-controller="NewsList" asp-action="delete" asp-route-id=@item.Id>
-                                    <div class="bi-x-circle"></div> 
-                                    Удалить
-                                </a>
-                                <a class="btn btn-outline-dark" style="border: none" asp-controller="Article" asp-action="AddOrEdit" asp-route-id=@item.Id asp-route-needEdit=@true>
-                                    <div class="bi-pencil"></div>
-                                    Изменить
-                                </a>
-                            </div>
-                        </div>
-                    </div>
 
-                </div>
-            </div>*@
-
-        <div class="card mb-3 shadow-3" style="max-width: 27rem;">
-            <div class="row g-0">
-                @if (File.Exists($"{AppEnvironment.WebRootPath}/Files/{item.Id}/image0.jpg"))
+<div class="blog mb-5">
+    <div class="d-flex align-items-center mb-4 pb-3" style="border-bottom: solid #FBFBFB">
+        <h5 class="text-white me-auto m-0">Наши новости</h5>
+        @Html.PartialAsync("NewsAddPatrial").Result
+    </div>
+    <div class="row mb-4">
+        @if (Model.CurrentPage > 44)
+        {
+            <a 
+                type="button" class="btn btn-primary btn-lg btn-floating align-self-center me-2"
+                asp-controller="NewsList" asp-action="show" asp-route-selectedPage="@(Model.CurrentPage - 5)">
+                <i class="fas fa-angle-left"></i>
+            </a>
+        }
+        @foreach (var article in Model.ArticlesResult)
+        {
+            <div class="card mx-2 col p-0 hover-shadow" >
+                @if (File.Exists($"{AppEnvironment.WebRootPath}/Files/{article.Id}/image0.jpg"))
                 {
-                    <img src="~/Files/@item.Id/image0.jpg" class="img-fluid" alt="">
+                    <img src="~/Files/@article.Id/image0.jpg" class="card-img-top img-fluid" alt="" style="width: 100%; max-height: 10rem;"/>
                 }
-                <div class="">
-                    <div class="card-body">
-                        <h5 class="card-title me-auto">@item.Title</h5>
-                        
-                            
-                            <p class="card-text">
-                            @Html.Raw(item.NoneImagesText)
-                        </p>
-
-                        <small class="text-muted">@item.AfterEditingDate</small>
-
+                else
+                {
+                    <div class="card-img-top w-100 h-100 d-flex align-items-center justify-content-center" style="background-color: #F5F5F5; min-height: 8rem;">
+                        <div style="color: #BDBDBD"><i class="fas fa-images fa-2x"></i></div>
                     </div>
-                    <div class="card-body d-flex">
-                        <a class="card-link" asp-controller="Article" asp-action="Show" asp-route-id=@item.Id asp-route-needEdit=@true>Подробнее</a>
-                        @Html.PartialAsync("NewsLoginPatrial", item.Id).Result
-                    </div>
+                }
+                <div class="card-body">
+                    <h6 class="card-title">@article.Title</h6>
+                    <small class="text-muted">@article.Date</small>
+                    <p class="small mb-0 mt-1"><a class="stretched-link" asp-controller="Article" asp-action="show" asp-route-id="@article.Id">Смотреть</a></p>
                 </div>
             </div>
-        </div>
-    }
+        }
+        @if (Model.ArticlesResult.Count == 5)     {
+            <a 
+                type="button" class="btn btn-primary btn-lg btn-floating align-self-center ms-2" 
+                asp-controller="NewsList" asp-action="show" asp-route-selectedPage="@(Model.CurrentPage + 5)">
+                <i class="fas fa-angle-right"></i>
+            </a>
+        }
+    </div>
+</div>
 
+<div class="card ">
+    @Html.PartialAsync("HomePagePatrial").Result
 
-    @if (Model.Articles.Count == 0)
-    {
-        <div class="alert alert-primary" role="alert">
-            Больше новостей нет
-        </div>
-    }
-
+    <div class="card-body">
+        <p class="card-text">
+            @Html.Raw(SectionsRepository.Query(x => x.Title == "ГЛАВНАЯ").ToList().FirstOrDefault().Text)
+        </p>
+    </div>
 
 </div>
-<nav aria-label="Page navigation" >
-    <ul class="pagination justify-content-center">
-        @if (Model.CurrentPage == 0)
-        {
-            <li class="page-item disabled">
-                <a class="page-link" asp-action="show" asp-controller="NewsList" asp-route-pageCount="@(Model.CurrentPage - 1)">
-                    <span>&#60;</span>
-                </a>
-            </li>
-        }
-        else
-        {
-            <li class="page-item">
-                <a class="page-link" asp-action="show" asp-controller="NewsList" asp-route-pageCount="@(Model.CurrentPage - 1)">
-                    <span>&#60;</span>
-                </a>
-            </li>
-        }
-
-        @for (int i = 0; i <= Model.PageCount; i++)
-        {
-            if (i == Model.CurrentPage)
-            {
-                <li class="page-item active">
-                    <a class="page-link" asp-controller="NewsList" asp-action="show" asp-route-pageCount="@i">@(i + 1)</a>
-                </li>
-            }
-            else
-            {
-                <li class="page-item">
-                    <a class="page-link" asp-controller="NewsList" asp-action="show" asp-route-pageCount="@i">@i</a>
-                </li>
-            }
-        }
-        @if (Model.Articles.Count == 0)
-        {
-            <li class="page-item disabled">
-                <a class="page-link" asp-action="show" asp-controller="NewsList" asp-route-pageCount="@(Model.CurrentPage + 1)">
-                    <span>&#62;</span>
-                </a>
-            </li>
-        }
-        else
-        {
-            <li class="page-item">
-                <a class="page-link" asp-action="show" asp-controller="NewsList" asp-route-pageCount="@(Model.CurrentPage + 1)">
-                    <span>&#62;</span>
-                </a>
-            </li>
-        }
-    </ul>
-</nav>

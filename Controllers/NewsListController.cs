@@ -6,6 +6,7 @@ using spgnn.DAL.Repositories;
 using spgnn.Models;
 using spgnn.ViewModels;
 using System.Linq;
+
 using Microsoft.AspNetCore.Hosting;
 
 namespace spgnn.Controllers
@@ -15,26 +16,37 @@ namespace spgnn.Controllers
     {
         private IRepositoryBase<Article> _repository;
         private readonly IWebHostEnvironment _appEnvironment;
-        private List<Article> Articles;
+        
         public NewsListController(IRepositoryBase<Article> repository, IWebHostEnvironment appEnvironment)
         {
             this._repository = repository;
             this._appEnvironment = appEnvironment;
-            this.Articles = _repository.Query(x => x.Id >= 0).ToList();
         }
 
         [HttpGet]
         [ActionName("show")]
-        public IActionResult Show(int pageCount)
+        public IActionResult Show(int selectedPage)
         {
-            if (Articles.Count == 0)
-            {
-                return RedirectToAction("AddOrEdit", "Article", new {id = -1});
-            }
+            var Articles = new List<Article>();
             
-            var realPageCount = (Articles.FirstOrDefault().Id/10)*10 + pageCount*10;
-            var models = _repository.Query(x => x.Id >= realPageCount && x.Id <= realPageCount+10).ToList();
-            return View("show", new NewsListViewModel() {Articles = models, PageCount = this.Articles.Count / 10, CurrentPage = pageCount});
+            int count = 0;
+            while (Articles.Count != 5)
+            {
+                var article = _repository.Find(selectedPage  + count);
+                if (article != null)
+                {
+                    Articles.Add(article);
+                }
+
+                count++;
+                if (count > 10)
+                {
+                    break;
+                }
+            }
+
+            return View(new NewsListViewModel {ArticlesResult = Articles, CurrentPage = selectedPage, GlobalCount = 
+                _repository.Query(x => x.Id > 0).ToList().Count}); 
         }
 
         [HttpGet]

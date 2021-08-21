@@ -1,48 +1,43 @@
-﻿/* Sticky footer styles
--------------------------------------------------- */
-
-html {}
-
-@media (min-width: 768px) {
-    html {}
+﻿.btn-primary{
+    background-color: #2E7D32;
+}
+.btn-primary:hover{
+    background-color: #1B5E20;
 }
 
-.border-top {
-    border-top: 1px solid #e5e5e5;
+.btn-secondary{
+    background-color: #43A047;
+}
+.btn-secondary:hover{
+    background-color: #2E7D32;
 }
 
-.border-bottom {
-    border-bottom: 1px solid #e5e5e5;
+.btn-dark{
+    background-color: #424242;
+}
+.btn-dark:hover{
+    background-color: #212121;
 }
 
-.box-shadow {
-    box-shadow: 0 .25rem .75rem rgba(0, 0, 0, .05);
+a{
+    color: #388E3C;
+}
+a:hover{
+    color: #1B5E20;
 }
 
-button.accept-policy {
-    font-size: 1rem;
-    line-height: inherit;
+.btn-danger{
+    background-color: #DD2C00;
+}
+.btn-danger:hover{
+    background-color: #BF360C;
 }
 
-
-/* Sticky footer styles
--------------------------------------------------- */
-
-html {
-    position: relative;
-    min-height: 100%;
+h1,h2,h3,h4,h5,h6{
+    font-family: "Roboto Slab", "Times New Roman", serif;
+    font-weight: 700
 }
 
-body {
-    /* Margin bottom by footer height */
-    margin-bottom: 60px;
-}
-
-.footer {
-    position: absolute;
-    bottom: 0;
-    width: 100%;
-    white-space: nowrap;
-    line-height: 4rem;
-    /* Vertically center the text there */
+.list-group-item:hover{
+    border-right: #2E7D32 solid
 }

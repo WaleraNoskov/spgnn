@@ -87,7 +87,7 @@ namespace spgnn.Controllers
                 }
                 var filesCount = Directory.GetDirectories(directory).Length + Directory.GetFiles(directory).Length;
                 var fileExtension = System.IO.Path.GetExtension(uploadedFile.FileName);
-                path = $"/Files/InfoArticles/{id}/image{filesCount}{fileExtension}";
+                path = $"/Files/info/{id}/image{filesCount}{fileExtension}";
 
                 using (var fileStream = new FileStream(_appEnvironment.WebRootPath + path, FileMode.Create))
                 {
@@ -118,7 +118,7 @@ namespace spgnn.Controllers
         [HttpPost]
         public IActionResult TinyDeleteImage(string path)
         {
-            var regex = new Regex(@"/Files/InfoArticles/\d{1,10000000}/\S{1,10000000}.jpg",
+            var regex = new Regex(@"/Files/info/\d{1,10000000}/\S{1,10000000}.jpg",
                 RegexOptions.Compiled | RegexOptions.CultureInvariant | RegexOptions.IgnoreCase);
             var matches = regex.Matches(path);
             var deletablePath = _appEnvironment.WebRootPath + matches[0].Value;
@@ -133,7 +133,7 @@ namespace spgnn.Controllers
             var article = _repository.Find(id);
             _repository.Remove(article);
 
-            var dir = _appEnvironment.WebRootPath + $"/Files/InfoArticles/{id}";
+            var dir = _appEnvironment.WebRootPath + $"/Files/info/{id}";
             if(Directory.Exists(dir))
                 Directory.Delete(dir, true);
             

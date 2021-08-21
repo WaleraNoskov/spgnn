@@ -1,0 +1,109 @@
+﻿@using spgnn.ViewModels;
+@model AddOrEditViewModel;
+@{
+    ViewData["Title"] = Model.NeedEdit ? "Изменение записи" : "Добавление записи";
+}
+<div class="card">
+    <div class="card-body">
+    <h3 class="mb-3">
+        @(Model.NeedEdit ? "Изменение раздела" : "Добавление раздела")
+    </h3>
+        <form asp-controller="Sections" asp-action="AddOrEdit" method="Post">
+            <input type="hidden" value="@Model.Dto.Id" asp-for="Dto.Id">
+            <input type="hidden" value="@Model.NeedEdit" asp-for="NeedEdit">
+
+            @if (Model.Dto.Title != "ГЛАВНАЯ")
+            {
+                <div class="mb-3">
+                    <h3>
+                        <input type="text" class="form-control form-control-lg" placeholder="Заголовок" asp-for="Dto.Title">
+                    </h3>
+                </div>
+            }
+            <div class="mb-3">
+                <textarea id="textEdit" class="form-control"  asp-for="Dto.Text">@(Model.Dto.Text)</textarea>
+            </div>
+            <div class="d-flex">
+                @if (Model.NeedEdit)
+                {
+                    <a class="btn btn-danger" asp-controller="Sections" asp-action="delete" asp-route-id="@Model.Dto.Id" onclick="return confirm('Вы точно хотите удалить эту запись?')">Удалить</a>
+                    <input class="btn btn-primary ms-auto" type="submit" value="Изменить">
+                }
+                else
+                {
+                    <input class="btn btn-primary ms-auto" type="submit" value="Добавить">
+                }
+            </div>
+        </form>
+        </div>
+</div>
+
+
+<!--Scripts-->
+<script src="https://cdn.tiny.cloud/1/6lfhp94kacgq91bzczponpzzm3gsg0o1fphst894zmgiv0k7/tinymce/5/tinymce.min.js"
+        referrerpolicy="origin"></script>
+<script type="text/javascript">
+    onDelete = function (editor) {
+        editor.on('KeyDown', function (e) {
+                
+        if ((e.keyCode == 8 || e.keyCode == 46) && editor.selection) {
+                
+            let selectedNode = editor.selection.getNode();
+                
+                if (selectedNode && selectedNode.nodeName == 'IMG') {
+                    let path = '/sections/TinyDeleteImage?path=' + selectedNode.src;
+                    tinyMCE.util.XHR.send({
+                        url: path, 
+                        type: 'POST',
+                    })
+                    }
+                }
+            });
+        }
+
+    tinymce.init({
+        selector: 'textarea#textEdit',
+        visual_table_class: 'table',
+        language: 'ru',
+        toolbar: 'code | undo redo | formatselect | alignleft aligncenter alignright | bold italic underline strikethrough forecolor pastetext | blockquote numlist bullist image link emoticons| export | table',
+        menubar: false,
+        min_height: 500,
+        max_height: 650,
+        plugins: 'code lists advlist emoticons autolink link image imagetools autoresize paste table',
+        images_upload_url: '/info/TinyUpload?id=@Model.Dto.Id',
+        automatic_uploads: true,
+        block_unsupported_drop: false,
+        image_dimensions: false,
+        valid_classes: {
+            'p': ''
+          },
+        
+        init_instance_callback: function (editor) {
+            editor.on('KeyDown', function (e) {
+                if ((e.keyCode == 8 || e.keyCode == 46) && editor.selection) {                                      
+                    let selectedNode = editor.selection.getNode();
+                    if (selectedNode && selectedNode.nodeName == 'IMG') {
+                    let path = '/sections/TinyDeleteImage?path=' + selectedNode.src;
+                    console.log(path);
+                        tinyMCE.util.XHR.send({
+                            url: path, 
+                            type: 'POST',
+                        })
+                    }
+                }    
+            })
+        },
+        setup: function (editor) {
+                    editor.on('init', function(args) {
+                            editor = args.target;
+                    
+                            editor.on('NodeChange', function(e) {
+                                if (e && e.element.nodeName.toLowerCase() == 'img') {
+                                    tinyMCE.DOM.setAttribs(e.element, {'width': null, 'height': null, 'class': 'w-100 h-100'});
+                                }
+                            });
+                        });
+                }
+        
+    });
+</script>

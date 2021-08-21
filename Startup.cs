@@ -45,6 +45,11 @@ namespace spgnn
             var connectionStringIdentity = Configuration.GetSection("ConnectionStrings:identity").Value;
             connectionStringIdentity = connectionString.Replace("/this", Directory.GetCurrentDirectory());
             services.AddDbContext<IdentityContext>(options => options.UseSqlite(connectionStringIdentity).UseLazyLoadingProxies());
+            
+            var connectionStringSections = Configuration.GetSection("ConnectionStrings:sections").Value;
+            connectionStringSections = connectionString.Replace("/this", Directory.GetCurrentDirectory());
+            services.AddDbContext<SectionsContext>(options => options.UseSqlite(connectionStringSections).UseLazyLoadingProxies());
+            
 
             services.AddIdentity<User, IdentityRole>(options =>
                     {
@@ -56,6 +61,7 @@ namespace spgnn
                 .AddEntityFrameworkStores<IdentityContext>();
             services.AddTransient<IRepositoryBase<Article>, RepositoryBase<Article>>();
             services.AddTransient<IInfoArticleRepository<Article>, InfoArticleRepository<Article>>();
+            services.AddTransient<ISectionsRepository<Article>, SectionsRepository<Article>>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

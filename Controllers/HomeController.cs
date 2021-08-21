@@ -17,7 +17,7 @@ namespace spgnn.Controllers
 
         public IActionResult Index()
         {
-            return View();
+            return RedirectToAction("Show", "NewsList", new {selectedPage = 40});
         }
 
         public IActionResult Privacy()

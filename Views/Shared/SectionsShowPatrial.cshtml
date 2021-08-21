@@ -1,0 +1,19 @@
+﻿@using Microsoft.AspNetCore.Identity
+@inject SignInManager<User> SignInManager
+@inject UserManager<User> UserManager
+
+@if(SignInManager.IsSignedIn(User)) {
+    <div class="card shadow-1-strong mb-3">
+        <div class="card-body">
+            <div class="card-title mb-3">
+                <h5>Действия</h5>
+            </div>
+            <a class="btn btn-secondary btn-rounded shadow-1-strong mb-3" asp-controller="Sections" asp-action="addoredit" asp-route-id="@Model.Id" asp-route-needEdit="@true">
+                <i class="fas fa-pen me-2"></i>Редактировать
+            </a>
+            <a class="btn btn-danger btn-rounded shadow-1-strong" onclick="return confirm('Вы точно хотите удалить эту запись?')" asp-controller="Sections" asp-action="delete" asp-route-id="@Model.Id">
+                <i class="fas fa-trash-alt me-2 "></i>Удалить
+            </a>
+        </div>
+    </div>
+}

@@ -47,13 +47,6 @@ namespace spgnn.Controllers
         public IActionResult AddOrEdit(AddOrEditViewModel viewModel, bool needEdit)
         {
             var model = viewModel.Dto;
-            if (model.Text != null)
-            {
-                var textEditPattern = new Regex(@"<img [\s*|\S*]*>");
-                model.NoneImagesText = textEditPattern.Replace(model.Text, " <i>Фотография</i> ");
-                textEditPattern = new Regex(@"</p>[\s|\S]*");
-                model.NoneImagesText = textEditPattern.Replace(model.Text, "</p>");
-            }
 
             if (needEdit)
             {
