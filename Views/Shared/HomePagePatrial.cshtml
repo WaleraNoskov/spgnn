@@ -1,0 +1,15 @@
+﻿@using Microsoft.AspNetCore.Identity
+@using spgnn.DAL.Repositories
+@inject SignInManager<User> SignInManager
+@inject UserManager<User> UserManager
+@inject ISectionsRepository<Article> SectionsRepository;
+
+@if(SignInManager.IsSignedIn(User)) {
+    <div class="card-header d-flex align-items-center">
+        <h5 class="me-auto m-0">Главная страница</h5>
+        <a class="btn btn-secondary btn-rounded btn-sm" asp-controller="Sections" asp-action="addoredit" asp-route-id="@SectionsRepository.Query(x => x.Title == "ГЛАВНАЯ").ToList().FirstOrDefault().Id">
+            <i class="fas fa-pen me-2"></i>
+            Редактировать
+        </a>
+    </div>
+}

@@ -1,0 +1,13 @@
+﻿@using Microsoft.AspNetCore.Identity
+@inject SignInManager<User> SignInManager
+@inject UserManager<User> UserManager
+
+@if(SignInManager.IsSignedIn(User)) {
+    <div class="dropup ms-auto">
+        <a class="dropdown-toggle hidden-arrow btn btn-sm btn-light btn-floating" href="#" role="button" id="dropdownMenuLink" data-mdb-toggle="dropdown" aria-expanded="false"><i class="fas fa-ellipsis-h"></i></a>
+        <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdownMenuLink">
+            <li><a class="dropdown-item" asp-controller="Article" asp-action="AddOrEdit" asp-route-id=@Model asp-route-needEdit=@true>Изменить</a></li>
+            <li><a class="dropdown-item" asp-controller="NewsList" asp-action="delete" asp-route-id=@Model>Удалить</a></li>
+        </ul>
+    </div>
+}

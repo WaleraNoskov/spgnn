@@ -1,0 +1,109 @@
+﻿@using spgnn.DAL.Repositories
+<!DOCTYPE html>
+<html lang="en" class="h-100">
+@inject ISectionsRepository<Article> SectionsRepository
+
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>@ViewData["Title"] - spgnn</title>
+    @*<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css">*@
+    <meta charset="utf-8"/>
+
+    @*
+    <!--Material Kit-->
+    <link href="~/lib/material-kit/assets/css/material-kit.css" rel="stylesheet" />
+    /*<link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Roboto+Slab:400,700|Material+Icons" />*/
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css">
+    *@
+
+    <!--mdb5-ui-->
+    <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap" rel="stylesheet"/>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css" rel="stylesheet"/>
+    @*<link href="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/3.6.0/mdb.min.css" rel="stylesheet"/>*@
+    <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,600,700,800|Roboto+Slab:400,700" />
+    <link href="~/themes/mdb5-ui/css/mdb.min.css" rel="stylesheet"/>
+    <link href="~/css/bootstrap.custom.css" rel="stylesheet"/>
+    
+        <link href="~/css/site.css" rel="stylesheet"/>
+</head>
+
+<body class="h-100" style=" background-image: url('../../backgroundImage.jpg'); background-repeat: no-repeat; background-attachment: fixed">
+<header >
+    <div class="container p-0">
+        <nav class="w-100 navbar navbar-expand-lg navbar-dark bg-transparent shadow-0 d-flex">
+            <div class="d-flex w-100">
+                <div class="ms-auto">
+                    <button
+                        class="navbar-toggler"
+                        type="button"
+                        data-mdb-toggle="collapse"
+                        data-mdb-target="#navbarSupportedContent"
+                        aria-controls="navbarSupportedContent"
+                        aria-expanded="false"
+                        aria-label="Toggle navigation">
+                        <i class="fas fa-bars"></i>
+                    </button>
+                    <a class="navbar-brand" asp-controller="NewsList" asp-action="show" asp-route-selectedPage="40">Семеновская православная гимназия</a>
+
+                    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+                </div>
+                <div class="navbar-nav flex-row collapse navbar-collapse me-5" id="navbarSupportedContent">
+                    <ul class="navbar-nav mb-2 mb-lg-0 ms-auto">
+                        <li class="nav-item me-3">
+                            <a class="nav-link" asp-controller="NewsList" asp-action="show" asp-route-selectedPage="40">Главная</a>
+                        </li>
+                        <li class="nav-item me-3">
+                            <a class="nav-link" asp-controller="InfoArticles" asp-action="Show" asp-route-id="-1">Сведения</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                Ещё
+                            </a>
+                            <ul class="dropdown-menu dropdown-menu-end shadow-3-strong" aria-labelledby="navbarDropdown" style="z-index: 2000;">
+                                @foreach (var article in SectionsRepository.Query(x => x.Id > 0).ToList())
+                                {
+                                    if (article.Title != "ГЛАВНАЯ")
+                                    {
+                                        <li>
+                                            <a class="dropdown-item" asp-controller="Sections" asp-action="Show" asp-route-id="@article.Id">@article.Title</a>
+                                        </li>
+                                    }
+                                    
+                                }
+                                @Html.PartialAsync("SectionsAddPatrial").Result
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
+                <div class="">
+                    @Html.PartialAsync("LoginPartial").Result
+                </div>
+            </div>
+        </nav>
+    </div>
+</header>
+<div class="container my-5 p-0">
+    <main class="" role="main">
+        @RenderBody()
+    </main>
+</div>
+
+
+
+
+<script src="~/lib/jquery/dist/jquery.min.js"></script>
+<script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+<script src="~/js/site.js" asp-append-version="true"></script>
+@await RenderSectionAsync("Scripts", required: false)
+
+<!-- MDB -->
+<script
+    type="text/javascript"
+    src="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/3.6.0/mdb.min.js"></script>
+</body>
+
+
+</html>

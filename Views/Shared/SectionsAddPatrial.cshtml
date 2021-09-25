@@ -1,0 +1,10 @@
+﻿@using Microsoft.AspNetCore.Identity
+@inject SignInManager<User> SignInManager
+@inject UserManager<User> UserManager
+
+@if(SignInManager.IsSignedIn(User)) {
+    <li><hr class="dropdown-divider" /></li>
+    <li>
+        <a class="dropdown-item" asp-controller="Sections" asp-action="addoredit" asp-route-id="-1">Добавить раздел</a>
+    </li>
+}

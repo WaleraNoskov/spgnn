@@ -1,0 +1,41 @@
+@using spgnn.Models;
+@model Article;
+
+<div class="container-fluid p-0 m-0">
+    <div class="row">
+        <div class="col-xl-9">
+            <div class="card shadow-1-strong mb-3" id="scrollElm">
+                <div class="card-body">
+                    <h3 class="mb-5 card-title">@Model.Title</h3>
+                    <small class="text-muted">@Model.Date</small>
+
+                    <div class="card-text">
+                        @Html.Raw(Model.Text)
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-xl-3 ">
+            <div class="sticky-xl-top">
+                <div style="height: 0;" id="stickyTrigger"></div>
+                @Html.PartialAsync("ArticleShowPatrial").Result
+            </div>
+
+    
+        </div>
+
+        
+    </div>
+</div>
+
+<script>
+setInterval(function setTrueSticky(){
+                const stickyElm = document.getElementById('stickyTrigger');
+                if(pageYOffset >= 45){
+                    stickyElm.style.height = '1.5rem';  
+                }
+                else {
+                    stickyElm.style.height = '0';   
+                }
+            }, 10)
+</script>

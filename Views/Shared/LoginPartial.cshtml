@@ -1,0 +1,31 @@
+﻿@using Microsoft.AspNetCore.Identity
+@inject SignInManager<User> SignInManager
+@inject UserManager<User> UserManager
+
+@if(SignInManager.IsSignedIn(User)) {
+    <a class="btn btn-outline-light me-0 dropdown-toggle hidden-arrow shadow-2" href="#" id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+            @UserManager.GetUserName(User)
+        </a>
+        <ul class="dropdown-menu dropdown-menu-end shadow-3-strong" aria-labelledby="navbarDropdown" style="z-index: 2000; right: 0">
+            <li>
+                <a class="dropdown-item" asp-controller="Account" asp-action="Edit" asp-route-id="@UserManager.GetUserId(User)">Редактировать</a>
+            </li>
+            <li>
+                <a class="dropdown-item" asp-controller="Account" asp-action="Logout">Выйти</a>
+            </li>
+        </ul>
+}
+else
+{
+    <a class="btn btn-outline-light me-0 dropdown-toggle hidden-arrow" href="#" id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+            Вход на сайт
+        </a>
+        <ul class="dropdown-menu dropdown-menu-end shadow-3-strong" aria-labelledby="navbarDropdown" style="z-index: 2000; right: 0">
+            <li>
+                <a class="dropdown-item" asp-controller="Account" asp-action="Register">Регистрация</a>
+            </li>
+            <li>
+                <a class="dropdown-item" asp-controller="Account" asp-action="Login">Войти</a>
+            </li>
+        </ul>
+}

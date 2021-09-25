@@ -1,0 +1,67 @@
+@using spgnn.ViewModels;
+@using System.IO
+@using Microsoft.AspNetCore.Hosting
+@using Microsoft.AspNetCore.Identity
+@using spgnn.DAL.Repositories
+@model NewsListViewModel;
+@inject IWebHostEnvironment AppEnvironment;
+@inject SignInManager<User> SignInManager
+@inject UserManager<User> UserManager
+@inject ISectionsRepository<Article> SectionsRepository;
+@inject IRepositoryBase<Article> NewsRepository;
+
+
+<div class="blog mb-5">
+    <div class="d-flex align-items-center mb-4 pb-3" style="border-bottom: solid #FBFBFB">
+        <h5 class="text-white me-auto m-0">Наши новости</h5>
+        @Html.PartialAsync("NewsAddPatrial").Result
+    </div>
+    <div class="row mb-4 w-100 mx-0">
+        @if (Model.CurrentPage > 44)
+        {
+            <a 
+                type="button" class="btn btn-primary btn-lg btn-floating align-self-center me-2"
+                asp-controller="NewsList" asp-action="show" asp-route-selectedPage="@(Model.CurrentPage - 5)">
+                <i class="fas fa-angle-left"></i>
+            </a>
+        }
+        @foreach (var article in Model.ArticlesResult)
+        {
+            <div class="card mx-2 col p-0 hover-shadow" >
+                @if (File.Exists($"{AppEnvironment.WebRootPath}/Files/{article.Id}/image0.jpg"))
+                {
+                    <img src="~/Files/@article.Id/image0.jpg" class="card-img-top img-fluid" alt="" style="width: 100%; max-height: 10rem;"/>
+                }
+                else
+                {
+                    <div class="card-img-top w-100 h-100 d-flex align-items-center justify-content-center" style="background-color: #F5F5F5; min-height: 8rem;">
+                        <div style="color: #BDBDBD"><i class="fas fa-images fa-2x"></i></div>
+                    </div>
+                }
+                <div class="card-body">
+                    <h6 class="card-title">@article.Title</h6>
+                    <small class="text-muted">@article.Date</small>
+                    <p class="small mb-0 mt-1"><a class="stretched-link" asp-controller="Article" asp-action="show" asp-route-id="@article.Id">Смотреть</a></p>
+                </div>
+            </div>
+        }
+        @if (Model.ArticlesResult.Count == 5)     {
+            <a 
+                type="button" class="btn btn-primary btn-lg btn-floating align-self-center ms-2" 
+                asp-controller="NewsList" asp-action="show" asp-route-selectedPage="@(Model.CurrentPage + 5)">
+                <i class="fas fa-angle-right"></i>
+            </a>
+        }
+    </div>
+</div>
+
+<div class="card ">
+    @Html.PartialAsync("HomePagePatrial").Result
+
+    <div class="card-body">
+        <p class="card-text">
+            @Html.Raw(SectionsRepository.Query(x => x.Title == "ГЛАВНАЯ").ToList().FirstOrDefault().Text)
+        </p>
+    </div>
+
+</div>

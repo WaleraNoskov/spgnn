@@ -1,0 +1,43 @@
+﻿.btn-primary{
+    background-color: #2E7D32;
+}
+.btn-primary:hover{
+    background-color: #1B5E20;
+}
+
+.btn-secondary{
+    background-color: #43A047;
+}
+.btn-secondary:hover{
+    background-color: #2E7D32;
+}
+
+.btn-dark{
+    background-color: #424242;
+}
+.btn-dark:hover{
+    background-color: #212121;
+}
+
+a{
+    color: #388E3C;
+}
+a:hover{
+    color: #1B5E20;
+}
+
+.btn-danger{
+    background-color: #C62828;
+}
+.btn-danger:hover{
+    background-color: #B71C1C;
+}
+
+h1,h2,h3,h4,h5,h6{
+    font-family: "Roboto Slab", "Times New Roman", serif;
+    font-weight: 700
+}
+
+.list-group-item:hover{
+    border-right: #2E7D32 solid
+}

@@ -1,0 +1,11 @@
+﻿@using Microsoft.AspNetCore.Identity
+@inject SignInManager<User> SignInManager
+@inject UserManager<User> UserManager
+
+@if(SignInManager.IsSignedIn(User)) {
+    <a
+        type="button" class="btn btn-dark btn-rounded align-self-end ms-2 btn-sm"
+        asp-controller="Article" asp-action="AddOrEdit" asp-route-id=-1>
+        <i class="fas fa-plus me-2"></i>Добавить запись
+    </a>
+}

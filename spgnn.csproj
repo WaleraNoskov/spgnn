@@ -1,0 +1,117 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>net5.0</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Magick.NET-Q16-AnyCPU" Version="7.23.1" />
+    <PackageReference Include="Microsoft.AspNetCore.Authorization" Version="5.0.4" />
+    <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="5.0.4" />
+    <PackageReference Include="Microsoft.AspNetCore.Identity.UI" Version="5.0.4" />
+    <PackageReference Include="Microsoft.AspNetCore.Mvc.Razor.RuntimeCompilation" Version="5.0.3" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="5.0.4" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Abstractions" Version="5.0.4" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Analyzers" Version="5.0.4" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="5.0.4">
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+      <PrivateAssets>all</PrivateAssets>
+    </PackageReference>
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Proxies" Version="5.0.4" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Relational" Version="5.0.4" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="5.0.4" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite.Core" Version="5.0.4" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="5.0.4" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="5.0.4">
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+      <PrivateAssets>all</PrivateAssets>
+    </PackageReference>
+    <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="5.0.2" />
+    <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.EntityFrameworkCore" Version="5.0.2" />
+    <PackageReference Include="sqlite" Version="3.13.0" />
+    <PackageReference Include="System.Drawing.Common" Version="5.0.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <_ContentIncludedByDefault Remove="wwwroot\Files\10\blobid0.jpg" />
+    <_ContentIncludedByDefault Remove="wwwroot\lib\bootstrap\dist\css\.DS_Store" />
+    <_ContentIncludedByDefault Remove="wwwroot\lib\bootstrap\dist\css\bootstrap-grid.css" />
+    <_ContentIncludedByDefault Remove="wwwroot\lib\bootstrap\dist\css\bootstrap-grid.css.map" />
+    <_ContentIncludedByDefault Remove="wwwroot\lib\bootstrap\dist\css\bootstrap-grid.min.css" />
+    <_ContentIncludedByDefault Remove="wwwroot\lib\bootstrap\dist\css\bootstrap-grid.min.css.map" />
+    <_ContentIncludedByDefault Remove="wwwroot\lib\bootstrap\dist\css\bootstrap-reboot.css" />
+    <_ContentIncludedByDefault Remove="wwwroot\lib\bootstrap\dist\css\bootstrap-reboot.css.map" />
+    <_ContentIncludedByDefault Remove="wwwroot\lib\bootstrap\dist\css\bootstrap-reboot.min.css" />
+    <_ContentIncludedByDefault Remove="wwwroot\lib\bootstrap\dist\css\bootstrap-reboot.min.css.map" />
+    <_ContentIncludedByDefault Remove="wwwroot\lib\bootstrap\dist\css\bootstrap.css" />
+    <_ContentIncludedByDefault Remove="wwwroot\lib\bootstrap\dist\css\bootstrap.css.map" />
+    <_ContentIncludedByDefault Remove="wwwroot\lib\bootstrap\dist\css\bootstrap.min.css" />
+    <_ContentIncludedByDefault Remove="wwwroot\lib\bootstrap\dist\css\bootstrap.min.css.map" />
+    <_ContentIncludedByDefault Remove="wwwroot\lib\bootstrap\dist\js\bootstrap.bundle.js" />
+    <_ContentIncludedByDefault Remove="wwwroot\lib\bootstrap\dist\js\bootstrap.bundle.js.map" />
+    <_ContentIncludedByDefault Remove="wwwroot\lib\bootstrap\dist\js\bootstrap.bundle.min.js" />
+    <_ContentIncludedByDefault Remove="wwwroot\lib\bootstrap\dist\js\bootstrap.bundle.min.js.map" />
+    <_ContentIncludedByDefault Remove="wwwroot\lib\bootstrap\dist\js\bootstrap.js" />
+    <_ContentIncludedByDefault Remove="wwwroot\lib\bootstrap\dist\js\bootstrap.js.map" />
+    <_ContentIncludedByDefault Remove="wwwroot\lib\bootstrap\dist\js\bootstrap.min.js" />
+    <_ContentIncludedByDefault Remove="wwwroot\lib\bootstrap\dist\js\bootstrap.min.js.map" />
+    <_ContentIncludedByDefault Remove="wwwroot\lib\bootstrap\LICENSE" />
+    <_ContentIncludedByDefault Remove="wwwroot\themes\cerulean\bootstrap.css" />
+    <_ContentIncludedByDefault Remove="wwwroot\themes\cerulean\bootstrap.min.css" />
+    <_ContentIncludedByDefault Remove="wwwroot\themes\cerulean\_bootswatch.scss" />
+    <_ContentIncludedByDefault Remove="wwwroot\themes\cerulean\_variables.scss" />
+    <_ContentIncludedByDefault Remove="wwwroot\themes\cyborg\bootstrap.css" />
+    <_ContentIncludedByDefault Remove="wwwroot\themes\cyborg\bootstrap.min.css" />
+    <_ContentIncludedByDefault Remove="wwwroot\themes\cyborg\_bootswatch.scss" />
+    <_ContentIncludedByDefault Remove="wwwroot\themes\cyborg\_variables.scss" />
+    <_ContentIncludedByDefault Remove="wwwroot\themes\flatly\bootstrap.css" />
+    <_ContentIncludedByDefault Remove="wwwroot\themes\flatly\bootstrap.min.css" />
+    <_ContentIncludedByDefault Remove="wwwroot\themes\flatly\_bootswatch.scss" />
+    <_ContentIncludedByDefault Remove="wwwroot\themes\flatly\_variables.scss" />
+    <_ContentIncludedByDefault Remove="wwwroot\themes\litera\bootstrap.css" />
+    <_ContentIncludedByDefault Remove="wwwroot\themes\litera\bootstrap.min.css" />
+    <_ContentIncludedByDefault Remove="wwwroot\themes\litera\_bootswatch.scss" />
+    <_ContentIncludedByDefault Remove="wwwroot\themes\litera\_variables.scss" />
+    <_ContentIncludedByDefault Remove="wwwroot\themes\lux\bootstrap.css" />
+    <_ContentIncludedByDefault Remove="wwwroot\themes\lux\bootstrap.min.css" />
+    <_ContentIncludedByDefault Remove="wwwroot\themes\lux\_bootswatch.scss" />
+    <_ContentIncludedByDefault Remove="wwwroot\themes\lux\_variables.scss" />
+    <_ContentIncludedByDefault Remove="wwwroot\themes\minty\bootstrap.css" />
+    <_ContentIncludedByDefault Remove="wwwroot\themes\minty\bootstrap.min.css" />
+    <_ContentIncludedByDefault Remove="wwwroot\themes\minty\_bootswatch.scss" />
+    <_ContentIncludedByDefault Remove="wwwroot\themes\minty\_variables.scss" />
+    <_ContentIncludedByDefault Remove="wwwroot\themes\pulse\bootstrap.css" />
+    <_ContentIncludedByDefault Remove="wwwroot\themes\pulse\bootstrap.min.css" />
+    <_ContentIncludedByDefault Remove="wwwroot\themes\pulse\_bootswatch.scss" />
+    <_ContentIncludedByDefault Remove="wwwroot\themes\pulse\_variables.scss" />
+    <_ContentIncludedByDefault Remove="wwwroot\themes\sandstone\bootstrap.css" />
+    <_ContentIncludedByDefault Remove="wwwroot\themes\sandstone\bootstrap.min.css" />
+    <_ContentIncludedByDefault Remove="wwwroot\themes\sandstone\_bootswatch.scss" />
+    <_ContentIncludedByDefault Remove="wwwroot\themes\sandstone\_variables.scss" />
+    <_ContentIncludedByDefault Remove="wwwroot\themes\sketchy\bootstrap.css" />
+    <_ContentIncludedByDefault Remove="wwwroot\themes\sketchy\bootstrap.min.css" />
+    <_ContentIncludedByDefault Remove="wwwroot\themes\sketchy\_bootswatch.scss" />
+    <_ContentIncludedByDefault Remove="wwwroot\themes\sketchy\_variables.scss" />
+    <_ContentIncludedByDefault Remove="wwwroot\themes\solar\bootstrap.css" />
+    <_ContentIncludedByDefault Remove="wwwroot\themes\solar\bootstrap.min.css" />
+    <_ContentIncludedByDefault Remove="wwwroot\themes\solar\_bootswatch.scss" />
+    <_ContentIncludedByDefault Remove="wwwroot\themes\solar\_variables.scss" />
+    <_ContentIncludedByDefault Remove="wwwroot\themes\startbootstrap-clean-blog-gh-pages\about.html" />
+    <_ContentIncludedByDefault Remove="wwwroot\themes\startbootstrap-clean-blog-gh-pages\assets\img\about-bg.jpg" />
+    <_ContentIncludedByDefault Remove="wwwroot\themes\startbootstrap-clean-blog-gh-pages\assets\img\contact-bg.jpg" />
+    <_ContentIncludedByDefault Remove="wwwroot\themes\startbootstrap-clean-blog-gh-pages\assets\img\home-bg.jpg" />
+    <_ContentIncludedByDefault Remove="wwwroot\themes\startbootstrap-clean-blog-gh-pages\assets\img\post-bg.jpg" />
+    <_ContentIncludedByDefault Remove="wwwroot\themes\startbootstrap-clean-blog-gh-pages\assets\img\post-sample-image.jpg" />
+    <_ContentIncludedByDefault Remove="wwwroot\themes\startbootstrap-clean-blog-gh-pages\contact.html" />
+    <_ContentIncludedByDefault Remove="wwwroot\themes\startbootstrap-clean-blog-gh-pages\css\styles.css" />
+    <_ContentIncludedByDefault Remove="wwwroot\themes\startbootstrap-clean-blog-gh-pages\index.html" />
+    <_ContentIncludedByDefault Remove="wwwroot\themes\startbootstrap-clean-blog-gh-pages\js\scripts.js" />
+    <_ContentIncludedByDefault Remove="wwwroot\themes\startbootstrap-clean-blog-gh-pages\post.html" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="wwwroot\Files" />
+    <Folder Include="wwwroot\Files\33" />
+  </ItemGroup>
+
+</Project>
