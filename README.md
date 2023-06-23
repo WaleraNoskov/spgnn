@@ -1,1 +1,1 @@
-Welcome to repository of Semyonov Orthodox gymnasium site (Семеновская православная гимназия). This is my first project that I have done alone, it isn't completely works, but I proud of it.
+Демо обновленного сайта Семеновской православной гимназии, в которой я учился. Сделал это как индивидуальный проект в 10 классе. Использован ASP.Net Core MVC.
